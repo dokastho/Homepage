@@ -1,4 +1,5 @@
 import homepage
+import flask
 from homepage.common.model import check_session
 
 @homepage.app.route("/")

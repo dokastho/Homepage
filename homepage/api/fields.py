@@ -1,6 +1,6 @@
 import homepage
 
-@homepage.app.route("/api/v1/field/field/update/", methods=["PUT"])
+@homepage.app.route("/api/v1/field/update/", methods=["PUT"])
 def update_field():
     """Update a text field."""
 
