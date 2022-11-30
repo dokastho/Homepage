@@ -3,6 +3,10 @@
     background-color: #01245B;
 }
 
+.wrapper {
+    text-align: center;
+}
+
 .w-background {
     background-color: white;
 }
