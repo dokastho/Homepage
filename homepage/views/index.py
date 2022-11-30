@@ -2,9 +2,14 @@ import homepage
 import flask
 from homepage.common.model import check_session
 
+
 @homepage.app.route("/")
 def show_index():
     """Render homepage for the site."""
+
+    # return flask.render_template("index.html")
+    return flask.render_template("wip.html")
+
 
 @homepage.app.route("/user/<uname>/")
 def show_user(uname):
@@ -19,6 +24,5 @@ def show_user(uname):
     context = {
         "logname": logname
     }
-    
 
     return flask.render_template("accounts.html", **context)

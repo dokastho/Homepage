@@ -1,0 +1,54 @@
+
+.banner {
+    background-color: #01245B;
+}
+
+.w-background {
+    background-color: white;
+}
+
+.b-background {
+    background-color: #00B6FA;
+}
+
+.item-card {
+    transition: all .2s;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 8%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 300px;
+    width: 300px;
+    padding: 4%;
+    margin: 10px;
+}
+
+body {
+    /* display: flex; */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.item-card:hover {
+    transition: all .2s;
+    padding: 5%;
+}
+
+.item-card:hover h1 {
+    transition: all .2s;
+    color: #00B6FA;
+}
+
+.item-card:hover h4 {
+    transition: all .2s;
+    color: #01245B;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}

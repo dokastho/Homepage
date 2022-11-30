@@ -45,7 +45,6 @@ def accounts():
             if not do_create(connection, info):
                 abort(500)      # server didn't abort correctly
 
-
         elif operation == "delete":
             do_delete(connection)
 
@@ -98,7 +97,6 @@ def do_create(connection, info):
     user = cur.fetchall()
     if len(user) != 0:
         abort(409)
-
 
     cur = connection.execute(
         "INSERT INTO users "
