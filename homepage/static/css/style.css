@@ -15,7 +15,7 @@
     background-color: #00B6FA;
 }
 
-.item-card {
+.item-card-1 {
     transition: all .2s;
     display: inline-block;
     vertical-align: middle;
@@ -24,7 +24,31 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     height: 300px;
     width: 300px;
-    padding: 4%;
+    padding: 100px;
+    margin: 10px;
+}
+.item-card-2 {
+    transition: all .2s;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    border-radius: 8%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 300px;
+    width: 830px;
+    padding: 100px;
+    margin: 10px;
+}
+.item-card-4 {
+    transition: all .2s;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    border-radius: 8%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 830px;
+    width: 830px;
+    padding: 100px;
     margin: 10px;
 }
 
@@ -33,17 +57,41 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
-.item-card:hover {
+.item-card-1:hover {
     transition: all .2s;
-    padding: 5%;
+    padding: 120px;
+}
+.item-card-2:hover {
+    transition: all .2s;
+    padding: 120px;
+}
+.item-card-4:hover {
+    transition: all .2s;
+    padding: 120px;
 }
 
-.item-card:hover h1 {
+.item-card-1:hover h1 {
+    transition: all .2s;
+    color: #00B6FA;
+}
+.item-card-2:hover h1 {
+    transition: all .2s;
+    color: #00B6FA;
+}
+.item-card-4:hover h1 {
     transition: all .2s;
     color: #00B6FA;
 }
 
-.item-card:hover h4 {
+.item-card-1:hover h4 {
+    transition: all .2s;
+    color: #01245B;
+}
+.item-card-2:hover h4 {
+    transition: all .2s;
+    color: #01245B;
+}
+.item-card-4:hover h4 {
     transition: all .2s;
     color: #01245B;
 }

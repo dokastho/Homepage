@@ -7,7 +7,13 @@ from homepage.common.model import check_session
 def show_index():
     """Render homepage for the site."""
 
-    # return flask.render_template("index.html")
+    return flask.render_template("index.html")
+    # return flask.render_template("wip.html")
+
+@homepage.app.route("/wip/")
+def show_wip():
+    """Render homepage for the site during development."""
+
     return flask.render_template("wip.html")
 
 
