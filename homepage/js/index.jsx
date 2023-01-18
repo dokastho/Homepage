@@ -1,24 +1,22 @@
 import PropTypes from 'prop-types';
 import { react } from 'react'
 
-class T extends react.Component {
+class Homepage extends react.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       // state attributes go here
-      // a: props.a
+      pages: props.pages
     };
   }
 
   componentDidMount() {
-    const {} = this.props;
-
-    this.setState({});
+    
   }
 
   render() {
-    const { } = this.state;
+    const { pages } = this.state;
     return (
       <div>
       </div>
@@ -26,22 +24,20 @@ class T extends react.Component {
   }
 }
 
-T.propTypes = {
+Homepage.propTypes = {
   // prop types go here
   // s: PropTypes.string.isRequired,
+  pages: PropTypes.instanceOf(Array)
 };
 
-T.defaultProps = {
+Homepage.defaultProps = {
   // default prop values go here if not required
+  pages: []
 };
-
-export default T
-
-// OR
 
 render(
-  <div>
-    <T />
-  </div>,
-  document.getElementById('reactEntry'),
-);
+    <div>
+      <Homepage />
+    </div>,
+    document.getElementById('reactEntry'),
+  );

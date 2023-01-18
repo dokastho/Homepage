@@ -2,6 +2,7 @@ import homepage
 import flask
 import json
 from homepage.common.model import get_db, get_logname
+from homepage.config import MY_LOGNAME
 
 
 @homepage.app.route("/api/v1/page/update/<pn>", methods=["PUT"])
@@ -18,7 +19,7 @@ def update_page(pn: int):
     if body is None:
         flask.abort(400)
     # fields in body?
-    if "title" not in body or "description" not in body or "body" not in body or "route" not in body:
+    if "title" not in body or "description" not in body or "body" not in body or "route" not in body or "page_size":
         flask.abort(400)
     # get user
     logname = get_logname()
@@ -28,10 +29,10 @@ def update_page(pn: int):
     # create page in db
     cur = connection.execute(
         "UPDATE pages"
-        "SET title = ?, description = ?, body = ?, route = ?"
+        "SET title = ?, description = ?, body = ?, route = ?, page_size = ?"
         "WHERE logname == ?"
-        "AND pageid == ?",
-        (body["title"], body["description"], body["body"], body["route"], logname, pn, )
+        "AND page_id == ?",
+        (body["title"], body["description"], body["body"], body["route"], body["page_size"], logname, pn, )
     )
     
     cur.fetchone()
@@ -50,7 +51,7 @@ def create_page():
     if body is None:
         flask.abort(400)
     # fields in body?
-    if "title" not in body or "description" not in body:
+    if "title" not in body or "description" not in body or "page_size" not in body:
         flask.abort(400)
     # get user
     logname = get_logname()
@@ -60,9 +61,9 @@ def create_page():
     # create page in db
     cur = connection.execute(
         "INSERT INTO pages"
-        "(title, description, owner)"
-        "VALUES (?, ?, ?)",
-        (body["title"], body["description"], logname, )
+        "(title, description, owner, page_size)"
+        "VALUES (?, ?, ?, ?)",
+        (body["title"], body["description"], body["page_size"], logname, )
     )
     
     cur.fetchone()
@@ -85,7 +86,7 @@ def delete_page(pn: int):
     # delete page from db
     cur = connection.execute(
         "DELETE FROM pages"
-        "WHERE pageid == ?",
+        "WHERE page_id == ?",
         "AND owner == ?"
         (pn, logname, )
     )
@@ -101,9 +102,19 @@ def fetch_page_by_number(pn: int):
 
     return get_page(pn), 201
 
-@homepage.app.route("/api/v1/page/fetch/<owner>", methods=["GET"])
-def fetch_page_by_owner(owner: str):
-    """Fetch a page."""
+@homepage.app.route("/api/v1/page/fetchall/", methods=["GET"])
+def fetch_page_by_owner():
+    """Fetch pages for logged in owner."""
+    # if this was a social media site, this would make sense. 
+    # So, I'll leave it here on the pretense that it *could*
+    # work as a social media site if I had a lot of users or
+    # otherwise a lot of site involvement.
+    # owner = get_logname()
+    # if owner is None:
+    #     flask.abort(403)
+    # In reality, I just need to display mine
+    owner: str = MY_LOGNAME
+
     # get pages owned by 'owner'
     connection = get_db()
     cur = connection.execute(
@@ -125,7 +136,7 @@ def get_page(pn: int) -> json:
     cur = connection.execute(
         "SELECT *"
         "FROM pages"
-        "WHERE pageid == ?",
+        "WHERE page_id == ?",
         (pn,)
     )
     

@@ -10,3 +10,4 @@ SESSION_COOKIE_NAME = 'login'
 SITE_ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Database file is var/resume.sqlite3
 DATABASE_FILENAME = SITE_ROOT/'var'/'homepage.sqlite3'
+MY_LOGNAME = "dokastho"
