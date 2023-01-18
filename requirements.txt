@@ -8,6 +8,7 @@ chardet==4.0.0
 charset-normalizer==2.0.6
 click==8.0.1
 flask==2.0.1
+flask_cors==3.0.10
 html5validator==0.4.0
 idna==3.2
 iniconfig==1.1.1

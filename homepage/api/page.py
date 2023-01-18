@@ -5,7 +5,7 @@ from homepage.common.model import get_db, get_logname
 from homepage.config import MY_LOGNAME
 
 
-@homepage.app.route("/api/v1/page/update/<pn>", methods=["PUT"])
+@homepage.app.route("/api/v1/page/update/<pn>/", methods=["PUT"])
 def update_page(pn: int):
     """Update a page."""
     # function will abort if the page doesn't exist
@@ -71,7 +71,7 @@ def create_page():
     return 201
 
 
-@homepage.app.route("/api/v1/page/delete/<pn>", methods=["DELETE"])
+@homepage.app.route("/api/v1/page/delete/<pn>/", methods=["DELETE"])
 def delete_page(pn: int):
     """Delete a page."""
     # function will abort if the page doesn't exist
@@ -96,7 +96,7 @@ def delete_page(pn: int):
     return 201
 
 
-@homepage.app.route("/api/v1/page/fetch/<pn>", methods=["GET"])
+@homepage.app.route("/api/v1/page/fetch/<pn>/", methods=["GET"])
 def fetch_page_by_number(pn: int):
     """Fetch a page."""
 

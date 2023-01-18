@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { react } from 'react'
-import Page from './page'
+import Thumbnail from './thumbnail'
 
 class Homepage extends react.Component {
 
@@ -32,7 +32,12 @@ class Homepage extends react.Component {
       <div>
         {
           pages.map((page) => (
-            <Page />
+            <Thumbnail 
+              pageId={page.page_id}
+              title={page.title}
+              description={page.description}
+              pageSize={page.page_size}
+            />
           ))
         }
       </div>
