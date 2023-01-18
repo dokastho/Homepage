@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { react } from 'react'
+import React from 'react'
 
-class T extends react.Component {
+class T extends React.Component {
 
   constructor(props) {
     super(props);

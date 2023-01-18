@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { react } from 'react'
+import React from 'react'
+import { render } from 'react-dom';
 import Thumbnail from './thumbnail'
 
-class Homepage extends react.Component {
+class Homepage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -28,6 +29,7 @@ class Homepage extends react.Component {
 
   render() {
     const { pages } = this.state;
+    console.log(pages)
     return (
       <div>
         {

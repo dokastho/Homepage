@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { react } from 'react'
+import React from 'react'
 
-class Thumbnail extends react.Component {
+class Thumbnail extends React.Component {
 
   constructor(props) {
     super(props);
