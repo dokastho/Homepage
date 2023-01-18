@@ -36,7 +36,7 @@ class Homepage extends react.Component {
               pageId={page.page_id}
               title={page.title}
               description={page.description}
-              pageSize={page.page_size}
+              pageSize={page.card_size}
             />
           ))
         }

@@ -19,7 +19,7 @@ def update_page(pn: int):
     if body is None:
         flask.abort(400)
     # fields in body?
-    if "title" not in body or "description" not in body or "body" not in body or "route" not in body or "page_size":
+    if "title" not in body or "description" not in body or "body" not in body or "route" not in body or "card_size":
         flask.abort(400)
     # get user
     logname = get_logname()
@@ -29,10 +29,10 @@ def update_page(pn: int):
     # create page in db
     cur = connection.execute(
         "UPDATE pages "
-        "SET title = ?, description = ?, body = ?, route = ?, page_size = ? "
+        "SET title = ?, description = ?, body = ?, route = ?, card_size = ? "
         "WHERE logname == ? "
         "AND page_id == ?",
-        (body["title"], body["description"], body["body"], body["route"], body["page_size"], logname, pn, )
+        (body["title"], body["description"], body["body"], body["route"], body["card_size"], logname, pn, )
     )
     
     cur.fetchone()
@@ -51,7 +51,7 @@ def create_page():
     if body is None:
         flask.abort(400)
     # fields in body?
-    if "title" not in body or "description" not in body or "page_size" not in body:
+    if "title" not in body or "description" not in body or "card_size" not in body:
         flask.abort(400)
     # get user
     logname = get_logname()
@@ -61,9 +61,9 @@ def create_page():
     # create page in db
     cur = connection.execute(
         "INSERT INTO pages "
-        "(title, description, owner, page_size) "
+        "(title, description, owner, card_size) "
         "VALUES (?, ?, ?, ?)",
-        (body["title"], body["description"], body["page_size"], logname, )
+        (body["title"], body["description"], body["card_size"], logname, )
     )
     
     cur.fetchone()
