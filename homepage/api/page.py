@@ -100,7 +100,7 @@ def delete_page(pn: int):
 def fetch_page_by_number(pn: int):
     """Fetch a page."""
 
-    return get_page(pn), 201
+    return flask.jsonify(get_page(pn)), 201
 
 @homepage.app.route("/api/v1/page/fetchall/", methods=["GET"])
 def fetch_page_by_owner():
@@ -126,7 +126,7 @@ def fetch_page_by_owner():
     
     content = cur.fetchall()
 
-    return content, 201
+    return flask.jsonify(content), 201
 
 
 def get_page(pn: int) -> json:
