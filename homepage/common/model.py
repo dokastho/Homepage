@@ -64,7 +64,7 @@ def get_target():
     return target
 
 
-def get_logname():
+def get_logname() -> str:
     """Get the logname either from session or http basic auth."""
     session_logname = check_session()
     basic_logname = check_authorization()
@@ -73,7 +73,7 @@ def get_logname():
     if basic_logname:
         return basic_logname
 
-    return False
+    return None
 
 
 def check_session():

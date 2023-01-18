@@ -11,9 +11,11 @@ CREATE TABLE users(
 );
 
 CREATE TABLE pages(
-  page_id INTEGER PRIMARY KEY AUTOINCREMENT;
   title TINYTEXT NOT NULL,
-  shorttext TINYTEXT NOT NULL,
-  description MEDIUMTEXT NOT NULL,
-  route TINYTEXT NOT NULL
+  description TINYTEXT,
+  body MEDIUMTEXT,
+  route TINYTEXT,
+  owner VARCHAR(20) NOT NULL,
+  page_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  FOREIGN KEY(owner) REFERENCES users(username)
 );

@@ -16,7 +16,7 @@ case $1 in
   "create")
   ## TODO avoid clobbering an existing database?
     mkdir -p var/uploads
-    sqlite3 var/homepage.sqlite3 < sql/schema.sqlw
+    sqlite3 var/homepage.sqlite3 < sql/schema.sql
     ;;
 
   "destroy")
