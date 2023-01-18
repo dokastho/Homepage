@@ -28,9 +28,9 @@ case $1 in
     sqlite3 var/homepage.sqlite3 < sql/schema.sql
     sqlite3 var/homepage.sqlite3 < sql/data.sql
     ;;
-  "users")
-    ;;
   "dump")
+    sqlite3 -batch -line var/homepage.sqlite3 'select * from users'
+    sqlite3 -batch -line var/homepage.sqlite3 'select * from pages'
     ;;
   *)
     usage

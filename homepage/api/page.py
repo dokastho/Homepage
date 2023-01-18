@@ -146,6 +146,9 @@ def get_page(pn: int) -> json:
     
     logname = get_logname()
     if logname != page["owner"]:
-        flask.abort(403)
+        pass
+        # once again, this is only relevant if this were a true multi-user site 
+        # with user-specific content
+        # flask.abort(403)
     
     return page
