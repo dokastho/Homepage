@@ -28,9 +28,9 @@ def update_page(pn: int):
     
     # create page in db
     cur = connection.execute(
-        "UPDATE pages"
-        "SET title = ?, description = ?, body = ?, route = ?, page_size = ?"
-        "WHERE logname == ?"
+        "UPDATE pages "
+        "SET title = ?, description = ?, body = ?, route = ?, page_size = ? "
+        "WHERE logname == ? "
         "AND page_id == ?",
         (body["title"], body["description"], body["body"], body["route"], body["page_size"], logname, pn, )
     )
@@ -60,8 +60,8 @@ def create_page():
     
     # create page in db
     cur = connection.execute(
-        "INSERT INTO pages"
-        "(title, description, owner, page_size)"
+        "INSERT INTO pages "
+        "(title, description, owner, page_size) "
         "VALUES (?, ?, ?, ?)",
         (body["title"], body["description"], body["page_size"], logname, )
     )
@@ -85,8 +85,8 @@ def delete_page(pn: int):
 
     # delete page from db
     cur = connection.execute(
-        "DELETE FROM pages"
-        "WHERE page_id == ?",
+        "DELETE FROM pages "
+        "WHERE page_id == ? ",
         "AND owner == ?"
         (pn, logname, )
     )
@@ -118,8 +118,8 @@ def fetch_page_by_owner():
     # get pages owned by 'owner'
     connection = get_db()
     cur = connection.execute(
-        "SELECT *"
-        "FROM pages"
+        "SELECT * "
+        "FROM pages "
         "WHERE owner == ?",
         (owner,)
     )
@@ -134,8 +134,8 @@ def get_page(pn: int) -> json:
     # get page from db & return it
     connection = get_db()
     cur = connection.execute(
-        "SELECT *"
-        "FROM pages"
+        "SELECT * "
+        "FROM pages "
         "WHERE page_id == ?",
         (pn,)
     )

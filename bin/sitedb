@@ -14,9 +14,9 @@ fi
 # Parse argument.  $1 is the first argument
 case $1 in
   "create")
-  ## TODO avoid clobbering an existing database?
     mkdir -p var/uploads
     sqlite3 var/homepage.sqlite3 < sql/schema.sql
+    sqlite3 var/homepage.sqlite3 < sql/data.sql
     ;;
 
   "destroy")
@@ -26,6 +26,7 @@ case $1 in
     rm -rf var/homepage.sqlite3 var/uploads
     mkdir -p var/uploads
     sqlite3 var/homepage.sqlite3 < sql/schema.sql
+    sqlite3 var/homepage.sqlite3 < sql/data.sql
     ;;
   "users")
     ;;
