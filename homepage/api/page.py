@@ -4,7 +4,7 @@ import json
 from homepage.common.model import get_db, get_logname
 
 
-@homepage.app.route("/api/v1/page/update/", methods=["PUT"])
+@homepage.app.route("/api/v1/page/update/<pn>", methods=["PUT"])
 def update_page(pn: int):
     """Update a page."""
     # function will abort if the page doesn't exist
@@ -70,7 +70,7 @@ def create_page():
     return 201
 
 
-@homepage.app.route("/api/v1/page/delete/", methods=["DELETE"])
+@homepage.app.route("/api/v1/page/delete/<pn>", methods=["DELETE"])
 def delete_page(pn: int):
     """Delete a page."""
     # function will abort if the page doesn't exist
@@ -96,11 +96,26 @@ def delete_page(pn: int):
 
 
 @homepage.app.route("/api/v1/page/fetch/<pn>", methods=["GET"])
-def fetch_page(pn: int):
+def fetch_page_by_number(pn: int):
     """Fetch a page."""
 
     return get_page(pn), 201
 
+@homepage.app.route("/api/v1/page/fetch/<owner>", methods=["GET"])
+def fetch_page_by_owner(owner: str):
+    """Fetch a page."""
+    # get pages owned by 'owner'
+    connection = get_db()
+    cur = connection.execute(
+        "SELECT *"
+        "FROM pages"
+        "WHERE owner == ?",
+        (owner,)
+    )
+    
+    content = cur.fetchall()
+
+    return content, 201
 
 
 def get_page(pn: int) -> json:
