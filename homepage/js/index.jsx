@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import { render } from 'react-dom';
 import Thumbnail from './thumbnail'
+import CreatePage from './create';
 
 class Homepage extends React.Component {
 
@@ -42,6 +43,7 @@ class Homepage extends React.Component {
             </div>
           ))
         }
+        <CreatePage />
       </div>
     );
   }
