@@ -21,25 +21,25 @@ class Homepage extends React.Component {
         return response.json();
       })
       .then((data) => {
-        const { pages } = data;
-        this.setState({ pages });
+        this.setState({ pages: data });
       })
       .catch((error) => console.log(error));
   }
 
   render() {
     const { pages } = this.state;
-    console.log(pages)
     return (
-      <div>
+      <div className="wrapper">
         {
           pages.map((page) => (
-            <Thumbnail 
-              pageId={page.page_id}
-              title={page.title}
-              description={page.description}
-              pageSize={page.card_size}
-            />
+            <div key={page.page_id}>
+              <Thumbnail 
+                pageId={page.page_id}
+                title={page.title}
+                description={page.description}
+                pageSize={page.card_size}
+              />
+            </div>
           ))
         }
       </div>
