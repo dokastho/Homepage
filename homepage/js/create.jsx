@@ -17,7 +17,11 @@ class CreatePage extends React.Component {
 
   setOpen(event, b) {
     console.log(event);
-    this.setState({ isOpen: b });
+    if (b) {
+      this.setState({ isOpen: b });
+    } else {
+      this.setState({ title: this.props.title, description: this.props.description, pageSize: this.props.pageSize, isOpen: b });
+    }
   }
 
   handleEntryChange(event, key) {
@@ -38,11 +42,11 @@ class CreatePage extends React.Component {
                 <br />
                 <input type="text" onChange={(event) => this.handleEntryChange(event, 'description')} value={stagedEntries.description} />
                 <br />
-                <input type="radio" id="size1" name="size" />
+                <input type="radio" id="size1" name="size" selected />
                 <label htmlFor="size1"> Small </label><br />
                 <input type="radio" id="size4" name="size" />
                 <label htmlFor="size4"> Large </label><br />
-                <input type="button" onSubmit={(event) => this.setOpen(event, false)} value="cancel" />
+                <input type="button" onClick={(event) => {event.stopPropagation(); this.setOpen(event, false)}} value="cancel" />
               </form>
             ) : (
               <h1>{stagedEntries.title}</h1>
