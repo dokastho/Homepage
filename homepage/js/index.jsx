@@ -10,6 +10,7 @@ class Homepage extends React.Component {
     super(props);
     this.state = {
       // state attributes go here
+      logname: "",
       pages: props.pages
     };
     // this.addThumbnail = this.addThumbnail.bind(this)
@@ -23,7 +24,7 @@ class Homepage extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({ pages: data });
+        this.setState({ logname: data.logname, pages: data.pages });
       })
       .catch((error) => console.log(error));
   }
@@ -35,7 +36,11 @@ class Homepage extends React.Component {
   }
 
   render() {
-    const { pages } = this.state;
+    const { logname, pages } = this.state;
+    var loggedIn = true;
+    if (logname === null) {
+      loggedIn = false;
+    }
     return (
       <div className="wrapper">
         {
@@ -47,7 +52,9 @@ class Homepage extends React.Component {
             />
           ))
         }
-        <CreatePage addFunc={this.addThumbnail.bind(this)}/>
+        {
+          loggedIn ? (<CreatePage addFunc={this.addThumbnail.bind(this)}/>) : (null)
+        }
       </div>
     );
   }

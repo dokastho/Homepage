@@ -124,7 +124,10 @@ def fetch_page_by_owner():
         (owner,)
     )
     
-    content = cur.fetchall()
+    content = dict({"logname": get_logname()})
+    
+    content["pages"] = cur.fetchall()
+    
 
     return flask.jsonify(content), 201
 
