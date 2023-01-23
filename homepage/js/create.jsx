@@ -57,7 +57,11 @@ class CreatePage extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ page }),
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        pageSize: pageSize
+      }),
     })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
