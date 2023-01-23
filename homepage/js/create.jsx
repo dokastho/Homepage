@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 
 class CreatePage extends React.Component {
@@ -9,9 +10,13 @@ class CreatePage extends React.Component {
       title: props.title,
       description: props.description,
       pageSize: props.pageSize,
+      addFunc: props.addFunc,
       isOpen: false
     };
     this.setOpen = this.setOpen.bind(this);
+    this.addEntry = this.addEntry.bind(this);
+    this.setLargePage = this.setLargePage.bind(this);
+    this.setSmallPage = this.setSmallPage.bind(this);
     this.handleEntryChange = this.handleEntryChange.bind(this);
   }
 
@@ -24,10 +29,44 @@ class CreatePage extends React.Component {
     }
   }
 
+  setLargePage() {
+    this.setState({ pageSize: 4 });
+  }
+
+  setSmallPage() {
+    this.setState({ pageSize: 1 });
+  }
+
   handleEntryChange(event, key) {
     const stagedEntries = this.state;
     stagedEntries[key] = event.target.value;
     this.setState({ stagedEntries });
+  }
+
+  addEntry() {
+    const { title, description, pageSize } = this.state;
+    // title, description, pageSize
+    const page = { title, description, pageSize }
+    this.state.addFunc(page)
+
+    // update db
+    // need body
+    fetch("/api/v1/page/create/", {
+      credentials: 'same-origin',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ page }),
+    })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .catch((error) => console.log(error));
+
+    // clear create form
+    this.setOpen(false);
   }
 
   render() {
@@ -36,22 +75,23 @@ class CreatePage extends React.Component {
       <div className="item-card-1" onClick={(event) => this.setOpen(event, true)}>
         <div className="item-card-content">
           {
-            stagedEntries.isOpen? (
-              <form>
+            stagedEntries.isOpen ? (
+              <form onSubmit={() => {this.addEntry()}} encType="multipart/form-data">
                 <input type="text" onChange={(event) => this.handleEntryChange(event, 'title')} value={stagedEntries.title} />
                 <br />
                 <input type="text" onChange={(event) => this.handleEntryChange(event, 'description')} value={stagedEntries.description} />
                 <br />
-                <input type="radio" id="size1" name="size" selected />
+                <input type="radio" id="size1" name="size" onClick={(event) => { event.stopPropagation(); this.setSmallPage() }} defaultChecked />
                 <label htmlFor="size1"> Small </label><br />
-                <input type="radio" id="size4" name="size" />
+                <input type="radio" id="size4" name="size" onClick={(event) => { event.stopPropagation(); this.setLargePage() }} />
                 <label htmlFor="size4"> Large </label><br />
-                <input type="button" onClick={(event) => {event.stopPropagation(); this.setOpen(event, false)}} value="cancel" />
+                <input type="button" onClick={(event) => { event.stopPropagation(); this.setOpen(event, false) }} value="cancel" />
+                <input type="submit" />
               </form>
             ) : (
               <h1>{stagedEntries.title}</h1>
-              )
-            }
+            )
+          }
         </div>
       </div>
     );
@@ -60,6 +100,7 @@ class CreatePage extends React.Component {
 
 CreatePage.propTypes = {
   // prop types go here
+  addFunc: PropTypes.func.isRequired
 };
 
 CreatePage.defaultProps = {

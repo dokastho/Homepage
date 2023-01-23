@@ -12,6 +12,7 @@ class Homepage extends React.Component {
       // state attributes go here
       pages: props.pages
     };
+    // this.addThumbnail = this.addThumbnail.bind(this)
   }
 
   componentDidMount() {
@@ -27,23 +28,28 @@ class Homepage extends React.Component {
       .catch((error) => console.log(error));
   }
 
+  addThumbnail(page) {
+    const { pages } = this.state;
+    pages.push(page)
+    this.setState({ pages })
+  }
+
   render() {
     const { pages } = this.state;
     return (
       <div className="wrapper">
         {
           pages.map((page) => (
-            <div key={page.page_id}>
+            <div key={page.pageId}>
               <Thumbnail 
-                pageId={page.page_id}
                 title={page.title}
                 description={page.description}
-                pageSize={page.card_size}
+                pageSize={page.pageSize}
               />
             </div>
           ))
         }
-        <CreatePage />
+        <CreatePage addFunc={this.addThumbnail.bind(this)}/>
       </div>
     );
   }

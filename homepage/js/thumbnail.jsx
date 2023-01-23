@@ -7,7 +7,6 @@ class Thumbnail extends React.Component {
     super(props);
     this.state = {
       // state attributes go here
-      pageId: props.pageId,
       title: props.title,
       description: props.description,
       pageSize: props.pageSize
@@ -20,13 +19,12 @@ class Thumbnail extends React.Component {
 
   render() {
     const {
-      pageId,
       title,
       description,
       pageSize
     } = this.state;
     return (
-      <div className={`item-card-${pageSize}`} key={pageId}>
+      <div className={`item-card-${pageSize}`}>
         <div className="item-card-content">
           <h1>{title}</h1>
           <h4>{description}</h4>
@@ -38,7 +36,6 @@ class Thumbnail extends React.Component {
 
 Thumbnail.propTypes = {
   // prop types go here
-  pageId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   pageSize: PropTypes.number.isRequired
