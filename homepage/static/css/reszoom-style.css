@@ -1,0 +1,404 @@
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+body {
+    background-color: #eaeef2;
+    font-family: sans-serif;
+    margin: 0px;
+    animation: fadeInAnimation ease .2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.wrapper,
+.center-panel {
+    margin: 16px;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.in-line {
+    display: flex;
+    padding: 4px;
+    align-items: baseline;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+a:hover {
+    background-color: #b6e3ff;
+    border-radius: 4px;
+    text-decoration: underline;
+    transition: all .2s ease-out;
+    padding: 4px;
+}
+
+a.plain {
+    text-decoration: none;
+}
+
+a.plain:hover {
+    background-color: white;
+    border-radius: 0px;
+    text-decoration: none;
+    padding: 0px;
+}
+
+.bottom-info {
+    position: absolute;
+    bottom: 0px;
+    height: auto;
+    width: 100%;
+    border-top: 2px solid darkgrey;
+    background-color: #ccc;
+}
+
+.pwordcheck {
+    font-style: italic;
+    color: rgb(53, 53, 53);
+}
+
+/* profile page */
+
+.user {
+    display: flex;
+    font-size: 24pt;
+}
+
+.username {
+    color: #0969da;
+}
+
+.fullname {
+    font-weight: bold;
+}
+
+.center-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 4%;
+    transition: all .4s ease-out;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titlecard {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* forms */
+
+form.create {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+button,
+input[type=button],
+input[type=submit],
+input[type=submit].danger {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: baseline;
+    margin: 0.14285714em;
+    background-color: #e8e8e8;
+    background-image: none;
+    padding: 0.5833em 0.833em;
+    color: rgba(0, 0, 0, .6);
+    /* text-transform: none; */
+    font-weight: 700;
+    border: 0 solid transparent;
+    border-radius: 0.28571429rem;
+    cursor: pointer;
+}
+
+input[type=text].plain {
+    border: 1px solid gray;
+    width: 300px;
+    background-color: white;
+}
+
+input[type=submit].danger {
+    border: 1px solid gray;
+    color: red;
+}
+
+input[type=submit].danger:hover {
+    color: white;
+    background-color: #cf222e;
+}
+
+
+button:hover,
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=text]:hover,
+input[type=password]:hover,
+input[type=number]:hover,
+input[type=month]:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0 0);
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=month] {
+    padding: 5px;
+    margin: 1px;
+    border: none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #E8F0FE;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=number]:focus,
+input[type=month]:focus {
+    border: none;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.long-text {
+    width: 98.5%;
+    ;
+}
+
+.site {
+    display: block;
+}
+
+/* input[type=text]:focus {
+    
+} */
+
+input.new-resume {
+    background-color: #2da44e;
+    color: white;
+}
+
+/* sidebar content */
+
+/* #floating-sidebar {} */
+
+.sidebar {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 24px;
+    width: 300px;
+    height: fit-content;
+    position: sticky;
+    top: 0;
+    /* top: 10%; */
+    margin: 24px;
+}
+
+.sidebar-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+img.profile,
+img.profile-large {
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+img.profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+img.profile-large {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+#make-resume {
+    width: 912px;
+    /* margin: auto; */
+}
+
+#view-resumes {
+    width: 60%;
+    /* margin: auto; */
+}
+
+/* resume list */
+.resume-link {
+    display: flex;
+    padding: 16px;
+    background-color: white;
+    width: -webkit-fill-available;
+}
+
+.resume-link:hover {
+    border: black;
+    border-radius: 8px;
+    border-width: 2px;
+    background-color: #b6e3ff;
+    color: black;
+    background-image: none;
+    cursor: pointer;
+}
+
+.resume-list,
+.resume-content {
+    background-color: white;
+    width: -webkit-fill-available;
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin: auto;
+}
+
+.resume-content {
+    padding: 48px;
+    max-width: 816px;
+}
+
+.list-header {
+    display: flex;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+}
+
+.header {
+    display: flex;
+}
+
+.spacer {
+    margin: auto;
+}
+
+.resume-name {
+    font-size: large;
+    font-weight: bold;
+    color: #0969da;
+}
+
+.resume-type {
+    color: #0969da;
+}
+
+.about-me {
+    text-align: center;
+}
+
+.name {
+    font-size: large;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.email {
+    font-size: medium;
+}
+
+
+/* entries */
+.edit-wrapper,
+.entry-wrapper:hover {
+    border: black;
+    border-radius: 4px;
+    border-width: 2px;
+    background-color: #b6e3ff;
+    padding: 4px;
+}
+
+
+.entry-wrapper:hover,
+.resume-link:hover {
+    transition: all .2s ease-out;
+}
+
+/* info entry */
+
+/* reminder that content in this context is institution name */
+span.content {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+span.gpa {
+    font-weight: bold;
+}
+
+span.location {
+    text-align: right;
+    float: right;
+    font-weight: bold;
+}
+
+/* span.title {
+
+} */
+
+span.date {
+    text-align: right;
+    float: right;
+}
+
+.tag {
+    background-color: #b6e3ff;
+    color: #0969da;
+    border-radius: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 2px;
+    width: fit-content;
+    font-weight: normal;
+}

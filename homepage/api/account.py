@@ -2,9 +2,9 @@
 import uuid
 import hashlib
 import os
+import homepage
 import arrow
 from flask import abort, redirect, render_template, request, session
-import homepage
 
 
 @homepage.app.route('/accounts/', methods=['POST'])
@@ -15,7 +15,6 @@ def accounts():
 
         # check if target is unspecified or blank
         target = homepage.model.get_target()
-
         # get operation
         operation = request.form.get('operation')
 
@@ -28,12 +27,8 @@ def accounts():
 
             # set session cookie
             if not do_login(uname, pword):
-                abort(500)      # server didn't abort
+                return redirect("/accounts/login/?badlogin=1")
             session['logname'] = uname
-
-        # do not allow creating or deleting without being logged in
-        elif 'logname' not in session:
-            abort(403)
 
         # create an account
         elif operation == "create":
@@ -43,7 +38,10 @@ def accounts():
                 "password": request.form.get("password")
             }
             if not do_create(connection, info):
-                abort(500)      # server didn't abort correctly
+                # username is taken
+                return redirect("/accounts/create/?baduser=1")
+
+            session['logname'] = info['username']
 
         elif operation == "delete":
             do_delete(connection)
@@ -55,9 +53,9 @@ def accounts():
 
             info = {
                 "username": session['logname'],
-                "old": request.form.get('oldpw'),
-                "new": request.form.get("newpw"),
-                "verify_new": request.form.get("renewpw"),
+                "old": request.form.get('old_password'),
+                "new": request.form.get("password"),
+                "verify_new": request.form.get("check_password"),
             }
             do_update_password(connection, info)
 
@@ -71,7 +69,7 @@ def do_login(uname, pword):
     """Login user with username and password."""
     logname = homepage.model.check_authorization(uname, pword)
     if not logname:
-        abort(403)
+        return False
 
     return True
 
@@ -86,6 +84,7 @@ def do_create(connection, info):
     local = utc.to('US/Pacific')
     timestamp = local.format()
 
+    pp_str = homepage.model.get_uuid(info['file'].filename)
     pw_str = create_hashed_password(info['password'])
 
     cur = connection.execute(
@@ -96,14 +95,19 @@ def do_create(connection, info):
     )
     user = cur.fetchall()
     if len(user) != 0:
-        abort(409)
+        return False
+
+    # save image
+    path = homepage.app.config["UPLOAD_FOLDER"]/pp_str
+    info['file'].save(path)
 
     cur = connection.execute(
         "INSERT INTO users "
-        "(username, email, password, created) "
-        "VALUES (?, ?, ?, ?)",
+        "(username, fullname, email, filename, password, created) "
+        "VALUES (?, ?, ?, ?, ?, ?)",
         (
-            info['username'], info['email'], pw_str, timestamp,
+            info['username'], info['name'], info['email'],
+            pp_str, pw_str, timestamp
         )
     )
     cur.fetchall()
@@ -185,7 +189,11 @@ def login():
 
         # redirect if a session cookie exists
         if 'logname' not in session:
-            return render_template("login.html")
+            badlogin = request.args.get("badlogin", type=bool, default=False)
+            context = {
+                "badlogin": badlogin,
+            }
+            return render_template("login.html", **context)
 
         # if there doesn't exist a session cookie,
         # redirect to /accounts/?target=/login/ to create one
@@ -196,37 +204,74 @@ def login():
 def logout():
     """Log out user and redirects to login."""
     session.clear()
-    return redirect('/')
+    return redirect('/accounts/login/')
 
 
-@homepage.app.route('/accounts/create/', methods=['GET'])
-def create():
-    """Render create page if not logged in."""
+# @homepage.app.route('/accounts/create/', methods=['GET'])
+# def create():
+#     """Render create page if not logged in."""
+#     if 'logname' in session:
+#         return redirect('/')
+#     baduser = request.args.get("baduser", type=bool, default=False)
+#     context = {
+#         "baduser": baduser,
+#     }
 
-    return render_template('create.html')
-
-
-@homepage.app.route('/accounts/delete/')
-def delete():
-    """Render delete page if logged in."""
-    if 'logname' not in session:
-        abort(403)
-
-    context = {
-        "logname": session['logname']
-    }
-    return render_template('delete.html', **context)
+#     return render_template('create.html', **context)
 
 
-@homepage.app.route('/accounts/password/')
-def password():
-    """Render page to update password if logged in."""
-    if 'logname' not in session:
-        abort(403)
-    context = {
-        "logname": session['logname']
-    }
-    return render_template('password.html', **context)
+# @homepage.app.route('/accounts/delete/')
+# def delete():
+#     """Render delete page if logged in."""
+#     if 'logname' not in session:
+#         abort(403)
+
+#     context = {
+#         "logname": session['logname']
+#     }
+#     return render_template('delete.html', **context)
+
+
+# @homepage.app.route('/accounts/edit/')
+# def edit():
+#     """Render edit page if logged in."""
+#     with homepage.app.app_context():
+#         # similar to structure found in comments to get logname
+#         logname = homepage.model.check_session()
+#         if not logname:
+#             return redirect("/accounts/login/")
+
+#         # get existing user info as seen in comments
+#         connection = homepage.model.get_db()
+#         cur = connection.execute(
+#             "SELECT fullname, email "
+#             "FROM users "
+#             "WHERE username == ?",
+#             (logname,)
+#         )
+#         user = cur.fetchall()
+
+#         if user == []:
+#             abort(409)
+#         user = user[0]
+
+#         context = {
+#             "logname": logname,
+#             "fullname": user['fullname'],
+#             "email": user['email']
+#         }
+#     return render_template('edit.html', **context)
+
+
+# @homepage.app.route('/accounts/password/')
+# def password():
+#     """Render page to update password if logged in."""
+#     if 'logname' not in session:
+#         abort(403)
+#     context = {
+#         "logname": session['logname']
+#     }
+#     return render_template('password.html', **context)
 
 
 def create_hashed_password(pword):
