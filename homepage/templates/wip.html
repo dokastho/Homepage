@@ -11,7 +11,11 @@
             <h1>Thomas Dokas</h1>
         </div>
         <div>
-            <a href="">{{logname}}</a>
+            {% if logname == "log in" %}
+            <a href="/accounts/login/">{{logname}}</a>
+            {% else %}
+            logged in as {{logname}}. <a href="/accounts/logout/">log out</a>
+            {% endif %}
         </div>
         <div id="reactEntry">
             <!-- Load JavaScript -->

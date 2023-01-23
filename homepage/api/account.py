@@ -4,6 +4,7 @@ import hashlib
 import os
 import homepage
 import arrow
+from homepage.common import model
 from flask import abort, redirect, render_template, request, session
 
 
@@ -11,10 +12,10 @@ from flask import abort, redirect, render_template, request, session
 def accounts():
     """/accounts/?target=URL Immediate redirect. No screenshot."""
     with homepage.app.app_context():
-        connection = homepage.model.get_db()
+        connection = model.get_db()
 
         # check if target is unspecified or blank
-        target = homepage.model.get_target()
+        target = model.get_target()
         # get operation
         operation = request.form.get('operation')
 
@@ -67,7 +68,7 @@ def accounts():
 
 def do_login(uname, pword):
     """Login user with username and password."""
-    logname = homepage.model.check_authorization(uname, pword)
+    logname = model.check_authorization(uname, pword)
     if not logname:
         return False
 
@@ -84,7 +85,7 @@ def do_create(connection, info):
     local = utc.to('US/Pacific')
     timestamp = local.format()
 
-    pp_str = homepage.model.get_uuid(info['file'].filename)
+    pp_str = model.get_uuid(info['file'].filename)
     pw_str = create_hashed_password(info['password'])
 
     cur = connection.execute(
@@ -154,7 +155,7 @@ def do_update_password(connection, info):
     salt = old_pw_hash['password'].split("$")
     if len(salt) > 1:
         salt = salt[1]
-        pw_str = homepage.model.encrypt(salt, info['old'])
+        pw_str = model.encrypt(salt, info['old'])
     else:
         pw_str = info['old']
 
@@ -200,11 +201,11 @@ def login():
         return redirect('/')
 
 
-@homepage.app.route('/accounts/logout/', methods=['POST'])
+@homepage.app.route('/accounts/logout/', methods=['GET'])
 def logout():
     """Log out user and redirects to login."""
     session.clear()
-    return redirect('/accounts/login/')
+    return redirect('/')
 
 
 # @homepage.app.route('/accounts/create/', methods=['GET'])
@@ -237,12 +238,12 @@ def logout():
 #     """Render edit page if logged in."""
 #     with homepage.app.app_context():
 #         # similar to structure found in comments to get logname
-#         logname = homepage.model.check_session()
+#         logname = model.check_session()
 #         if not logname:
 #             return redirect("/accounts/login/")
 
 #         # get existing user info as seen in comments
-#         connection = homepage.model.get_db()
+#         connection = model.get_db()
 #         cur = connection.execute(
 #             "SELECT fullname, email "
 #             "FROM users "

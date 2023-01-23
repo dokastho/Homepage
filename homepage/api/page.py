@@ -63,12 +63,12 @@ def create_page():
         "INSERT INTO pages "
         "(title, description, owner, pageSize) "
         "VALUES (?, ?, ?, ?)",
-        (body["title"], body["description"], body["pageSize"], logname, )
+        (body["title"], body["description"], logname, body["pageSize"], )
     )
     
     cur.fetchone()
 
-    return 201
+    return flask.Response(status=201)
 
 
 @homepage.app.route("/api/v1/page/delete/<pn>/", methods=["DELETE"])
@@ -93,7 +93,7 @@ def delete_page(pn: int):
     
     cur.fetchone()
     
-    return 201
+    return flask.Response(status=201)
 
 
 @homepage.app.route("/api/v1/page/fetch/<pn>/", methods=["GET"])

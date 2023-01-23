@@ -40,13 +40,11 @@ class Homepage extends React.Component {
       <div className="wrapper">
         {
           pages.map((page) => (
-            <div key={page.pageId}>
-              <Thumbnail 
-                title={page.title}
-                description={page.description}
-                pageSize={page.pageSize}
-              />
-            </div>
+            <Thumbnail 
+              title={page.title}
+              description={page.description}
+              pageSize={page.pageSize}
+            />
           ))
         }
         <CreatePage addFunc={this.addThumbnail.bind(this)}/>
