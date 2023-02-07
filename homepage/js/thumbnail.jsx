@@ -13,9 +13,8 @@ class Thumbnail extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.setState(this.props);
-  // }
+
+
 
   render() {
     const {
@@ -24,7 +23,7 @@ class Thumbnail extends React.Component {
       pageSize
     } = this.state;
     return (
-      <div className={`item-card-${pageSize}`}>
+      <div className={`item-card-${pageSize}`} onClick={(event) => this.thumbnailBlowUp(event)}>
         <div className="item-card-content">
           <h1>{title}</h1>
           <h4>{description}</h4>

@@ -29,20 +29,26 @@ class CreatePage extends React.Component {
     }
   }
 
+  // Handler for radio button click: large
+  // Translates 'large' to 4
   setLargePage() {
     this.setState({ pageSize: 4 });
   }
 
+  // Handler for radio button click: small
+  // Translates 'small' to 1
   setSmallPage() {
     this.setState({ pageSize: 1 });
   }
 
+  // Handler for form entry change
   handleEntryChange(event, key) {
     const stagedEntries = this.state;
     stagedEntries[key] = event.target.value;
     this.setState({ stagedEntries });
   }
 
+  // Request-Response method for adding a thumbnail
   addEntry() {
     const { title, description, pageSize } = this.state;
     // title, description, pageSize
