@@ -10,7 +10,7 @@ class CreatePage extends React.Component {
       title: props.title,
       description: props.description,
       pageSize: props.pageSize,
-      addFunc: props.addFunc,
+      addThumbnail: props.addThumbnail,
       isOpen: false
     };
     this.setOpen = this.setOpen.bind(this);
@@ -53,7 +53,7 @@ class CreatePage extends React.Component {
     const { title, description, pageSize } = this.state;
     // title, description, pageSize
     const page = { title, description, pageSize }
-    this.state.addFunc(page)
+    this.state.addThumbnail(page)
 
     // update db
     // need body
@@ -110,7 +110,7 @@ class CreatePage extends React.Component {
 
 CreatePage.propTypes = {
   // prop types go here
-  addFunc: PropTypes.func.isRequired
+  addThumbnail: PropTypes.func.isRequired
 };
 
 CreatePage.defaultProps = {

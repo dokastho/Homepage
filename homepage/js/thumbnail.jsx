@@ -37,7 +37,8 @@ Thumbnail.propTypes = {
   // prop types go here
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  pageSize: PropTypes.number.isRequired
+  pageSize: PropTypes.number.isRequired,
+  thumbnailBlowUp: PropTypes.func.isRequired
 };
 
 Thumbnail.defaultProps = {
