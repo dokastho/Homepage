@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react'
+import pseudoRandom from 'pseudo-random';
 
 class CreatePage extends React.Component {
 
@@ -11,6 +12,7 @@ class CreatePage extends React.Component {
       description: props.description,
       pageSize: props.pageSize,
       addThumbnail: props.addThumbnail,
+      nextPageId: props.nextPageId,
       isOpen: false
     };
     this.setOpen = this.setOpen.bind(this);
@@ -51,8 +53,14 @@ class CreatePage extends React.Component {
   // Request-Response method for adding a thumbnail
   addEntry() {
     const { title, description, pageSize } = this.state;
+    
+    // generate new ID
+    const prng = pseudoRandom(Date.now());
+    const pageId = Math.floor(prng.random()*65534)+1;
+    console.log("Created page ID=" + pageId);
+
     // title, description, pageSize
-    const page = { title, description, pageSize }
+    const page = { title, description, pageSize, pageId }
     this.state.addThumbnail(page)
 
     // update db
@@ -66,7 +74,8 @@ class CreatePage extends React.Component {
       body: JSON.stringify({
         title: title,
         description: description,
-        pageSize: pageSize
+        pageSize: pageSize,
+        pageId: pageId
       }),
     })
       .then((response) => {

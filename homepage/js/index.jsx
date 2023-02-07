@@ -13,12 +13,12 @@ class Homepage extends React.Component {
       // state attributes go here
       logname: "",
       blownUpThumbnail: 0,
-      pages: []
+      thumbnails: []
     };
   }
 
   componentDidMount() {
-    // fetch all the pages, set state
+    // fetch all the thumbnails, set state
     fetch("/api/v1/page/fetchall/", { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -26,7 +26,7 @@ class Homepage extends React.Component {
       })
       .then((data) => {
         console.log(data);
-        this.setState({ logname: data.logname, pages: data.pages });
+        this.setState({ logname: data.logname, thumbnails: data.pages });
       })
       .catch((error) => console.log(error));
   }
@@ -35,9 +35,9 @@ class Homepage extends React.Component {
   // Appends a thumbnail to the pages array after it was created
   // The request to create a new thumbnail is handled in the CreatePage component.
   addThumbnail(page) {
-    const { pages } = this.state;
-    pages.push(page);
-    this.setState({ pages });
+    const { thumbnails } = this.state;
+    thumbnails.push(page);
+    this.setState({ thumbnails });
   }
   
   // Hook passed to Thumbnail component.
@@ -51,7 +51,7 @@ class Homepage extends React.Component {
   render() {
     const {
       logname,
-      pages,
+      thumbnails,
       blownUpThumbnail
     } = this.state;
     var loggedIn = true;
@@ -61,7 +61,7 @@ class Homepage extends React.Component {
     return (
       <div className="wrapper">
         {
-          pages.map((page) => (
+          thumbnails.map((page) => (
             <Thumbnail
               pageId={page.pageId}
               title={page.title}
@@ -87,7 +87,7 @@ class Homepage extends React.Component {
 Homepage.propTypes = {
   // prop types go here
   // s: PropTypes.string.isRequired,
-  pages: PropTypes.instanceOf(Array)
+  thumbnails: PropTypes.instanceOf(Array)
 };
 
 render(

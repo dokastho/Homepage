@@ -51,7 +51,7 @@ def create_page():
     if body is None:
         flask.abort(400)
     # fields in body?
-    if "title" not in body or "description" not in body or "pageSize" not in body:
+    if "title" not in body or "description" not in body or "pageSize" not in body or "pageId" not in body:
         flask.abort(400)
     # get user
     logname = get_logname()
@@ -61,9 +61,9 @@ def create_page():
     # create page in db
     cur = connection.execute(
         "INSERT INTO pages "
-        "(title, description, owner, pageSize) "
-        "VALUES (?, ?, ?, ?)",
-        (body["title"], body["description"], logname, body["pageSize"], )
+        "(title, description, owner, pageSize, pageId) "
+        "VALUES (?, ?, ?, ?, ?)",
+        (body["title"], body["description"], logname, body["pageSize"], body["pageId"], )
     )
     
     cur.fetchone()
@@ -87,7 +87,7 @@ def delete_page(pn: int):
     cur = connection.execute(
         "DELETE FROM pages "
         "WHERE pageId == ? ",
-        "AND owner == ?"
+        "AND owner == ?",
         (pn, logname, )
     )
     
