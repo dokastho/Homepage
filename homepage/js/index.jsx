@@ -25,6 +25,7 @@ class Homepage extends React.Component {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         this.setState({ logname: data.logname, pages: data.pages });
       })
       .catch((error) => console.log(error));
@@ -35,8 +36,8 @@ class Homepage extends React.Component {
   // The request to create a new thumbnail is handled in the CreatePage component.
   addThumbnail(page) {
     const { pages } = this.state;
-    pages.push(page)
-    this.setState({ pages })
+    pages.push(page);
+    this.setState({ pages });
   }
   
   // Hook passed to Thumbnail component.
@@ -61,7 +62,8 @@ class Homepage extends React.Component {
       <div className="wrapper">
         {
           pages.map((page) => (
-            <Thumbnail 
+            <Thumbnail
+              pageId={page.pageId}
               title={page.title}
               description={page.description}
               pageSize={page.pageSize}
@@ -70,7 +72,7 @@ class Homepage extends React.Component {
           ))
         }
         {
-          loggedIn ? (<CreatePage addFunc={this.addThumbnail.bind(this)}/>) : (null)
+          loggedIn ? (<CreatePage addThumbnail={this.addThumbnail.bind(this)}/>) : (null)
         }
         {
           blownUpThumbnail === 0 ? (null) : (
