@@ -9,12 +9,10 @@ class Thumbnail extends React.Component {
       // state attributes go here
       title: props.title,
       description: props.description,
-      pageSize: props.pageSize
+      pageSize: props.pageSize,
+      thumbnailBlowUp: props.thumbnailBlowUp
     };
   }
-
-
-
 
   render() {
     const {
