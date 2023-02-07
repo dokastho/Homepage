@@ -14,10 +14,6 @@ class Page extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.setState(this.props);
-  // }
-
   render() {
     const {
       title,
