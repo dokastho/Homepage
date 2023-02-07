@@ -3,6 +3,7 @@ import React from 'react'
 import { render } from 'react-dom';
 import Thumbnail from './thumbnail'
 import CreatePage from './create';
+import Page from './page';
 
 class Homepage extends React.Component {
 
@@ -47,7 +48,11 @@ class Homepage extends React.Component {
   }
 
   render() {
-    const { logname, pages } = this.state;
+    const {
+      logname,
+      pages,
+      blownUpThumbnail
+    } = this.state;
     var loggedIn = true;
     if (logname === null) {
       loggedIn = false;
@@ -60,11 +65,17 @@ class Homepage extends React.Component {
               title={page.title}
               description={page.description}
               pageSize={page.pageSize}
+              thumbnailBlowUp={this.thumbnailBlowUp.bind(this)}
             />
           ))
         }
         {
           loggedIn ? (<CreatePage addFunc={this.addThumbnail.bind(this)}/>) : (null)
+        }
+        {
+          blownUpThumbnail === 0 ? (null) : (
+            <Page title="Mocked Title" description="Mocked Description" />
+          )
         }
       </div>
     );

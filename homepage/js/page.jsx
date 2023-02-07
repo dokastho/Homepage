@@ -22,7 +22,7 @@ class Page extends React.Component {
       route,
     } = this.state;
     return (
-      <div className={"foobar"}>
+      <div className={"center-stage-page"}>
         <div className="item-card-content">
           <h1>{title}</h1>
           <h4>{description}</h4>
@@ -38,12 +38,12 @@ Page.propTypes = {
   // prop types go here
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  route: PropTypes.string.isRequired,
 };
 
 Page.defaultProps = {
   // default prop values go here if not required
+  body: "",
+  route: "",
 };
 
 export default Page
