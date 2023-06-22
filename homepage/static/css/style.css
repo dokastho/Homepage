@@ -119,3 +119,15 @@ body {
         grid-gap: 1rem;
     }
 }
+
+.topic-tray {
+    background-color: aliceblue;
+}
+
+.picker {
+    background-color: aqua;
+}
+
+.topic {
+    background-color: orange;
+}

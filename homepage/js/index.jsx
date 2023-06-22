@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react'
+import Picker from './picker';
+import Topic from './topic';
 import { render } from 'react-dom';
-import Thumbnail from './thumbnail'
-import CreatePage from './create';
-import Page from './page';
 
 class Homepage extends React.Component {
 
@@ -12,83 +10,56 @@ class Homepage extends React.Component {
     this.state = {
       // state attributes go here
       logname: "",
-      blownUpThumbnail: 0,
-      thumbnails: []
+      // list of objects, each has props for a topic
+      topics: [],
+      focusedTopicIdx: 0,
+      maxTopicIdx: 0,
     };
+
+    this.setTopicFocus = this.setTopicFocus.bind(this);
   }
 
   componentDidMount() {
     // fetch all the thumbnails, set state
-    fetch("/api/v1/page/fetchall/", { credentials: 'same-origin' })
+    fetch("/api/v1/home/", { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
         return response.json();
       })
       .then((data) => {
         console.log(data);
-        this.setState({ logname: data.logname, thumbnails: data.pages });
+        this.setState({
+          logname: data.logname,
+          topics: data.topics,
+          maxTopicIdx: data.topics.length - 1,
+        });
       })
       .catch((error) => console.log(error));
   }
 
-  // Hook passed to CreatePage component.
-  // Appends a thumbnail to the pages array after it was created
-  // The request to create a new thumbnail is handled in the CreatePage component.
-  addThumbnail(page) {
-    const { thumbnails } = this.state;
-    thumbnails.push(page);
-    this.setState({ thumbnails });
-  }
-  
-  // Hook passed to Thumbnail component.
-  // Sets the "blownUpThumbnail" state variable to the thumbnail that was clicked
-  // invokes render() due to setState() invocation, which then renders the thumbnail
-  // as a center stage Page component
-  thumbnailBlowUp(pageId) {
-    this.setState({ blownUpThumbnail: pageId });
+  setTopicFocus(topicIdx) {
+    this.setState({ focusedTopicIdx: topicIdx });
   }
 
   render() {
     const {
       logname,
-      thumbnails,
-      blownUpThumbnail
+      topics,
+      focusedTopicIdx,
+      maxTopicIdx,
     } = this.state;
-    var loggedIn = true;
-    if (logname === null) {
-      loggedIn = false;
-    }
+    const focusedTopic = topics[focusedTopicIdx];
+
+    const pickerPairs = topics.map((topic, i) => { return ({ idx: i, name: topic.name }); });
+
     return (
-      <div className="wrapper">
-        {
-          thumbnails.map((page) => (
-            <Thumbnail
-              pageId={page.pageId}
-              title={page.title}
-              description={page.description}
-              pageSize={page.pageSize}
-              thumbnailBlowUp={this.thumbnailBlowUp.bind(this)}
-            />
-          ))
-        }
-        {
-          loggedIn ? (<CreatePage addThumbnail={this.addThumbnail.bind(this)}/>) : (null)
-        }
-        {
-          blownUpThumbnail === 0 ? (null) : (
-            <Page title="Mocked Title" description="Mocked Description" />
-          )
-        }
+      <div className='topic-tray'>
+        <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
+        <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} />
       </div>
     );
   }
 }
-
-Homepage.propTypes = {
-  // prop types go here
-  // s: PropTypes.string.isRequired,
-  thumbnails: PropTypes.instanceOf(Array)
-};
 
 render(
   <div>

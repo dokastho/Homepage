@@ -10,13 +10,9 @@ CREATE TABLE users(
   PRIMARY KEY(username)
 );
 
-CREATE TABLE pages(
-  title TINYTEXT NOT NULL,
-  description TINYTEXT,
-  body MEDIUMTEXT,
-  route TINYTEXT,
+CREATE TABLE topics(
+  topicId INTEGER PRIMARY KEY NOT NULL,
+  name VARCHAR(64) NOT NULL,
   owner VARCHAR(20) NOT NULL,
-  pageSize INTEGER NOT NULL,
-  pageId INTEGER PRIMARY KEY NOT NULL,
   FOREIGN KEY(owner) REFERENCES users(username)
 );
