@@ -17,13 +17,24 @@ CREATE TABLE topics(
   FOREIGN KEY(owner) REFERENCES users(username)
 );
 
+CREATE TABLE groups(
+  groupId INTEGER PRIMARY KEY AUTOINCREMENT,
+  owner VARCHAR(20) NOT NULL,
+  topicId INTEGER NOT NULL,
+  groupOrder INTEGER NOT NULL,
+  FOREIGN KEY(topicId) REFERENCES topics(topicId),
+  FOREIGN KEY(owner) REFERENCES users(username)
+);
+
 CREATE TABLE media(
   mediaId INTEGER PRIMARY KEY AUTOINCREMENT,
   uuid VARCHAR(64) NOT NULL,
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
+  groupId INTEGER NOT NULL,
   topicOrder INTEGER NOT NULL,
   FOREIGN KEY(topicId) REFERENCES topics(topicId),
+  FOREIGN KEY(groupId) REFERENCES groups(groupId),
   FOREIGN KEY(owner) REFERENCES users(username)
 );
 
@@ -32,7 +43,9 @@ CREATE TABLE stories(
   text VARCHAR(400) NOT NULL,
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
+  groupId INTEGER NOT NULL,
   topicOrder INTEGER NOT NULL,
   FOREIGN KEY(topicId) REFERENCES topics(topicId),
+  FOREIGN KEY(groupId) REFERENCES groups(groupId),
   FOREIGN KEY(owner) REFERENCES users(username)
 );
