@@ -53,17 +53,17 @@ class Homepage extends React.Component {
     const pickerPairs = topics.map((topic, i) => { return ({ idx: i, name: topic.name }); });
 
     return (
-      <div className='topic-tray'>
-        <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
-        <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} />
+      <div className='site'>
+        <div className='topic-tray'>
+          <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
+          <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} />
+        </div>
       </div>
     );
   }
 }
 
 render(
-  <div>
-    <Homepage />
-  </div>,
+  <Homepage />,
   document.getElementById('reactEntry'),
 );

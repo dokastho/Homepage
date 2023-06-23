@@ -121,7 +121,12 @@ body {
 }
 
 .topic-tray {
-    background-color: aliceblue;
+    background-color: white;
+    padding: 7.5vh;
+    border-radius: 4rem;
+    border: 0.25vh solid gray;
+    height: 82.5vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .picker {
@@ -130,4 +135,15 @@ body {
 
 .topic {
     background-color: orange;
+}
+
+.site {
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+body {
+    background-color: aliceblue;
+    transition: all 0.2s;
+    margin: 1vh;
 }
