@@ -48,9 +48,10 @@ class Homepage extends React.Component {
       focusedTopicIdx,
       maxTopicIdx,
     } = this.state;
-    const focusedTopic = topics[focusedTopicIdx];
+    const keys = Object.keys(topics);
+    const focusedTopic = topics[keys[focusedTopicIdx]];
 
-    const pickerPairs = topics.map((topic, i) => { return ({ idx: i, name: topic.name }); });
+    const pickerPairs = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name }); });
 
     return (
       <div className='site'>

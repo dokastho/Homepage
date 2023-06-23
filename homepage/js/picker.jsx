@@ -17,7 +17,7 @@ class Picker extends React.Component {
         {
           topics.map((topic) => {
             const { idx, name } = topic;
-            return <button id={idx} onClick={() => { setTopicFocus(idx) }}>{name}</button>
+            return <button id={idx} key={idx} onClick={() => { setTopicFocus(idx) }}>{name}</button>
           })
         }
       </div>

@@ -22,6 +22,7 @@ CREATE TABLE media(
   uuid VARCHAR(64) NOT NULL,
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
+  topicOrder INTEGER NOT NULL,
   FOREIGN KEY(topicId) REFERENCES topics(topicId),
   FOREIGN KEY(owner) REFERENCES users(username)
 );
@@ -31,6 +32,7 @@ CREATE TABLE stories(
   text VARCHAR(400) NOT NULL,
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
+  topicOrder INTEGER NOT NULL,
   FOREIGN KEY(topicId) REFERENCES topics(topicId),
   FOREIGN KEY(owner) REFERENCES users(username)
 );

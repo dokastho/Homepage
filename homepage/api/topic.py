@@ -25,7 +25,6 @@ def fetch_topics_by_owner():
         topic_id = topic["topicId"]
         content["topics"][topic_id] = topic
         content["topics"][topic_id]["stories"] = []
-        content["topics"][topic_id]["media"] = []
         pass
 
     # media
@@ -33,13 +32,15 @@ def fetch_topics_by_owner():
     media = cur.fetchall()
     for m in media:
         topic_id = m["topicId"]
-        content["topics"][topic_id]["media"].append(m)
+        m["type"] = "media"
+        content["topics"][topic_id]["stories"].append(m)
         pass
     # stories
     cur = connection.execute("SELECT * FROM stories WHERE owner == ?", (owner,))
     stories = cur.fetchall()
     for s in stories:
         topic_id = s["topicId"]
+        s["type"] = "story"
         content["topics"][topic_id]["stories"].append(s)
         pass
 
