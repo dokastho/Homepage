@@ -46,3 +46,7 @@ h1 {
     margin-right: 20%;
     margin-left: 20%;
 }
+
+.image {
+    width: -webkit-fill-available;
+}
