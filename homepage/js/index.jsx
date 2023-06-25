@@ -1,6 +1,6 @@
 import React from 'react'
-import Picker from './picker';
-import Topic from './topic';
+import Picker from './Picker';
+import Topic from './Topic';
 import { render } from 'react-dom';
 
 class Homepage extends React.Component {
@@ -31,7 +31,7 @@ class Homepage extends React.Component {
         this.setState({
           logname: data.logname,
           topics: data.topics,
-          maxTopicIdx: data.topics.length - 1,
+          maxTopicIdx: Object.keys(data.topics).length - 1,
         });
       })
       .catch((error) => console.log(error));
@@ -49,7 +49,8 @@ class Homepage extends React.Component {
       maxTopicIdx,
     } = this.state;
     const keys = Object.keys(topics);
-    const focusedTopic = topics[keys[focusedTopicIdx]];
+    const focusedKey = keys[focusedTopicIdx];
+    const focusedTopic = topics[focusedKey];
 
     const pickerPairs = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name }); });
 
@@ -57,7 +58,11 @@ class Homepage extends React.Component {
       <div className='site'>
         <div className='topic-tray'>
           <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
-          <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} />
+          <div key={focusedKey}>
+            {
+              focusedTopic ? <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} /> : null
+            }
+          </div>
         </div>
       </div>
     );

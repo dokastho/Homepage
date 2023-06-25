@@ -17,10 +17,11 @@ class Story extends React.Component {
   }
 
   render() {
+    const { keyNum } = this.props;
     const { text } = this.state;
     return (
       <div className='story'>
-        <div className='story-content'>
+        <div className='story-content' key={keyNum}>
           <p>{text}</p>
         </div>
       </div>

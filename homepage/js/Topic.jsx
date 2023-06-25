@@ -1,36 +1,44 @@
 import PropTypes from 'prop-types';
 import React from 'react'
-import Image from './Image';
-import Story from './Story';
+import Group from './Group';
 
 class Topic extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      name: "",
+      groups: {}
+    }
+  }
+
+  componentDidMount() {
+    const { name, groups } = this.props.content;
+    this.setState({ name, groups });
   }
 
   render() {
     const {
-      content,
       setTopicFocus,
       topicIdx,
       maxTopicIdx,
     } = this.props;
 
-    const topicName = content?.name;
+    const { name, groups } = this.state;
 
-    console.log(content);
-
-    // sort content by topicOrder
-    const sortedStories = content?.stories.sort((a, b) => a.topicOrder - b.topicOrder);
+    // sort groups by groupOrder
+    const groupKeys = Object.keys(groups).map((groupId) => {
+      return ({ groupId: groupId, groupOrder: groups[groupId].groupOrder });
+    })
+    const sortedGroups = groupKeys.sort((a, b) => a.groupOrder - b.groupOrder);
 
 
     return (
-      <div className='topic'>
-        <h1>{topicName}</h1>
+      <div className='topic' key={topicIdx}>
+        <h1>{name}</h1>
         {
-          sortedStories?.map((story, i) => {
-            return(story.type === "media" ? <Image id={story.uuid} keyNum={i} /> : <Story text={story.text} keyNum={i} /> )
+          sortedGroups.map((group, i) => {
+            return (<Group content={groups[group.groupId]} />);
           })
         }
         {
@@ -53,7 +61,6 @@ Topic.propTypes = {
   content: PropTypes.object,
   topicIdx: PropTypes.number.isRequired,
   maxTopicIdx: PropTypes.number.isRequired,
-
   // methods:
   // setTopicFocus
 };
