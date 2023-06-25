@@ -12,4 +12,5 @@ groups consist of stories, which are either text or media
 
 ## Ideas
 
-- make main site color change per topic (maize & blue for education, eg)
+-[x] make main site color change per topic (maize & blue for education, eg)
+-[ ] render one group per scrollable view, and make scrolling paginated

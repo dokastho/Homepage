@@ -1,9 +1,13 @@
-
+:root {
+    --primary: #00326a;
+    --alt: #ffcb0b;
+    --trim: white;
+}
 
 body {
     /* display: flex; */
     font-family: Arial, Helvetica, sans-serif;
-    background-color: aliceblue;
+    background-color: var(--primary);
     transition: all 0.2s;
     margin: 1vh;
 }
@@ -18,23 +22,27 @@ h1 {
 }
 
 .topic-tray {
-    background-color: white;
+    transition: all 0.2s;
+    background-color: var(--alt);
     padding: 7.5vh;
     border-radius: 4rem;
-    border: 0.25vh solid gray;
+    border: 0.25vh solid var(--trim);
     height: 82.5vh;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .picker {
+    transition: all 0.2s;
     background-color: aqua;
 }
 
 .topic {
+    transition: all 0.2s;
     background-color: orange;
 }
 
 .site {
+    transition: all 0.2s;
     margin-right: 20%;
     margin-left: 20%;
 }

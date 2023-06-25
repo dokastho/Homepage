@@ -14,6 +14,7 @@ CREATE TABLE topics(
   topicId INTEGER PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(64) NOT NULL,
   owner VARCHAR(20) NOT NULL,
+  styles VARCHAR(256) NOT NULL,
   FOREIGN KEY(owner) REFERENCES users(username)
 );
 

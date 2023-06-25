@@ -22,9 +22,18 @@ class Topic extends React.Component {
       setTopicFocus,
       topicIdx,
       maxTopicIdx,
+      content,
     } = this.props;
 
     const { name, groups } = this.state;
+
+    // apply styles
+    const { styles } = content;
+    const pstyles = JSON.parse(styles);
+    const vars = Object.keys(pstyles);
+    vars.map((v) => {
+      document.documentElement.style.setProperty(`--${v}`, pstyles[v]);
+    })
 
     // sort groups by groupOrder
     const groupKeys = Object.keys(groups).map((groupId) => {

@@ -3,10 +3,10 @@ PRAGMA foreign_keys = ON;
 INSERT INTO users(username, fullname, email, password)
 VALUES ('dokastho', 'Thomas Dokas', 'dokastho@umich.edu', 'password');
 
-INSERT INTO topics(name, owner)
-VALUES ('Education', 'dokastho');
-INSERT INTO topics(name, owner)
-VALUES ('Experience', 'dokastho');
+INSERT INTO topics(name, owner, styles)
+VALUES ('Education', 'dokastho', '{"primary": "#00326a", "alt": "#ffcb0b", "trim": "white"}');
+INSERT INTO topics(name, owner, styles)
+VALUES ('Experience', 'dokastho', '{"primary": "#18453b", "alt": "white", "trim": "gray"}');
 
 INSERT INTO groups(owner, topicId, groupOrder)
 VALUES ('dokastho', 1, 1);
