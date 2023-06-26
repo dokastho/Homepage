@@ -23,8 +23,7 @@ case $1 in
     rm -rf var/homepage.sqlite3 var/uploads
     ;;
   "reset")
-    rm -rf var/homepage.sqlite3 var/uploads
-    mkdir -p var/uploads
+    rm -rf var/homepage.sqlite3
     sqlite3 var/homepage.sqlite3 < sql/schema.sql
     sqlite3 var/homepage.sqlite3 < sql/data.sql
     ;;

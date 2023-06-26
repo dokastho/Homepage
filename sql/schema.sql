@@ -10,13 +10,43 @@ CREATE TABLE users(
   PRIMARY KEY(username)
 );
 
-CREATE TABLE pages(
-  title TINYTEXT NOT NULL,
-  description TINYTEXT,
-  body MEDIUMTEXT,
-  route TINYTEXT,
+CREATE TABLE topics(
+  topicId INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(64) NOT NULL,
   owner VARCHAR(20) NOT NULL,
-  card_size INTEGER NOT NULL,
-  page_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  styles VARCHAR(256) NOT NULL,
+  FOREIGN KEY(owner) REFERENCES users(username)
+);
+
+CREATE TABLE groups(
+  groupId INTEGER PRIMARY KEY AUTOINCREMENT,
+  owner VARCHAR(20) NOT NULL,
+  topicId INTEGER NOT NULL,
+  groupOrder INTEGER NOT NULL,
+  FOREIGN KEY(topicId) REFERENCES topics(topicId),
+  FOREIGN KEY(owner) REFERENCES users(username)
+);
+
+CREATE TABLE media(
+  mediaId INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid VARCHAR(64) NOT NULL,
+  owner VARCHAR(20) NOT NULL,
+  topicId INTEGER NOT NULL,
+  groupId INTEGER NOT NULL,
+  topicOrder INTEGER NOT NULL,
+  FOREIGN KEY(topicId) REFERENCES topics(topicId),
+  FOREIGN KEY(groupId) REFERENCES groups(groupId),
+  FOREIGN KEY(owner) REFERENCES users(username)
+);
+
+CREATE TABLE stories(
+  storyId INTEGER PRIMARY KEY AUTOINCREMENT,
+  text VARCHAR(400) NOT NULL,
+  owner VARCHAR(20) NOT NULL,
+  topicId INTEGER NOT NULL,
+  groupId INTEGER NOT NULL,
+  topicOrder INTEGER NOT NULL,
+  FOREIGN KEY(topicId) REFERENCES topics(topicId),
+  FOREIGN KEY(groupId) REFERENCES groups(groupId),
   FOREIGN KEY(owner) REFERENCES users(username)
 );

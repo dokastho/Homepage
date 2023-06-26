@@ -1,6 +1,6 @@
 import homepage
 import flask
-from homepage.common.model import check_session
+from homepage.common.model import check_session, get_logname
 
 
 @homepage.app.route("/")
@@ -14,7 +14,13 @@ def show_index():
 def show_wip():
     """Render homepage for the site during development."""
 
-    return flask.render_template("wip.html")
+    logname = get_logname()
+    if logname is None:
+        logname = "log in"
+    
+    context = dict({"logname": logname})
+
+    return flask.render_template("wip.html", **context)
 
 
 @homepage.app.route("/user/<uname>/")

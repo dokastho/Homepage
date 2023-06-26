@@ -1,0 +1,119 @@
+.wrapper {
+    margin: 5rem;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+}
+
+.w-background {
+    background-color: white;
+}
+
+.b-background {
+    background-color: #00B6FA;
+}
+
+.navbar {
+    transition: all .2s;
+    background-color: white;
+    padding: 1rem;
+    width: 50%;
+    border-radius: 20px;
+    border: 2px solid black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar:hover {
+    transition: all .2s;
+    background-color: #01245B;
+    border: 2px solid #01245B;
+}
+
+.navbar:hover h1 {
+    color: white;
+}
+
+.item-card-1 {
+    transition: all .2s;
+    text-align: left;
+    border-radius: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    aspect-ratio: 1/ 1;
+    object-fit: cover;
+    grid-column: span 1;
+    grid-row: span 1;
+}
+.item-card-4 {
+    transition: all .2s;
+    text-align: left;
+    border-radius: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    aspect-ratio: 1/ 1;
+    object-fit: cover;
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.item-card-content {
+    padding: 2rem;
+}
+
+.item-card-1:hover h1 {
+    transition: all .2s;
+    color: #00B6FA;
+}
+.item-card-4:hover h1 {
+    transition: all .2s;
+    color: #00B6FA;
+}
+
+.item-card-1:hover h4 {
+    transition: all .2s;
+    color: #01245B;
+}
+.item-card-4:hover h4 {
+    transition: all .2s;
+    color: #01245B;
+}
+
+.center-stage-page {
+    background: green;
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    padding: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: fit-content;
+    min-height: 40%;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body {
+    /* display: flex; */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* mobile layout */
+@media only screen and (max-width: 1200px) {
+    .wrapper {
+        margin: 1rem;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+    }
+}

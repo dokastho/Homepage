@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react'
+import Picker from './Picker';
+import Topic from './Topic';
 import { render } from 'react-dom';
-import Thumbnail from './thumbnail'
-import CreatePage from './create';
 
 class Homepage extends React.Component {
 
@@ -10,59 +9,70 @@ class Homepage extends React.Component {
     super(props);
     this.state = {
       // state attributes go here
-      pages: props.pages
+      logname: "",
+      // list of objects, each has props for a topic
+      topics: [],
+      focusedTopicIdx: 0,
+      maxTopicIdx: 0,
     };
+
+    this.setTopicFocus = this.setTopicFocus.bind(this);
   }
 
   componentDidMount() {
-    // fetch all the pages, set state
-    fetch("/api/v1/page/fetchall/", { credentials: 'same-origin' })
+    // fetch all the thumbnails, set state
+    fetch("/api/v1/home/", { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
         return response.json();
       })
       .then((data) => {
-        this.setState({ pages: data });
+        console.log(data);
+        this.setState({
+          logname: data.logname,
+          topics: data.topics,
+          maxTopicIdx: Object.keys(data.topics).length - 1,
+          topicSwitches: 0  // for re-rendering after pickers
+        });
       })
       .catch((error) => console.log(error));
   }
 
+  setTopicFocus(topicIdx) {
+    const { topicSwitches } = this.state;
+    this.setState({ focusedTopicIdx: topicIdx, topicSwitches: topicSwitches + 1 });
+  }
+
   render() {
-    const { pages } = this.state;
+    const {
+      logname,
+      topics,
+      focusedTopicIdx,
+      maxTopicIdx,
+      topicSwitches,
+    } = this.state;
+    const keys = Object.keys(topics);
+    const focusedKey = keys[focusedTopicIdx];
+    const focusedTopic = topics[focusedKey];
+
+    const pickerPairs = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name }); });
+
     return (
-      <div className="wrapper">
-        {
-          pages.map((page) => (
-            <div key={page.page_id}>
-              <Thumbnail 
-                pageId={page.page_id}
-                title={page.title}
-                description={page.description}
-                pageSize={page.card_size}
-              />
-            </div>
-          ))
-        }
-        <CreatePage />
+      <div className='site'>
+        <div className='topic-tray'>
+          <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
+          <div key={`${focusedKey}-${topicSwitches}`}>
+            {
+              focusedTopic ? <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} /> : null
+            }
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-Homepage.propTypes = {
-  // prop types go here
-  // s: PropTypes.string.isRequired,
-  pages: PropTypes.instanceOf(Array)
-};
-
-Homepage.defaultProps = {
-  // default prop values go here if not required
-  pages: []
-};
-
 render(
-  <div>
-    <Homepage />
-  </div>,
+  <Homepage />,
   document.getElementById('reactEntry'),
 );
