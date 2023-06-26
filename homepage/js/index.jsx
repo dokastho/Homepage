@@ -32,13 +32,15 @@ class Homepage extends React.Component {
           logname: data.logname,
           topics: data.topics,
           maxTopicIdx: Object.keys(data.topics).length - 1,
+          topicSwitches: 0  // for re-rendering after pickers
         });
       })
       .catch((error) => console.log(error));
   }
 
   setTopicFocus(topicIdx) {
-    this.setState({ focusedTopicIdx: topicIdx });
+    const { topicSwitches } = this.state;
+    this.setState({ focusedTopicIdx: topicIdx, topicSwitches: topicSwitches + 1 });
   }
 
   render() {
@@ -47,6 +49,7 @@ class Homepage extends React.Component {
       topics,
       focusedTopicIdx,
       maxTopicIdx,
+      topicSwitches,
     } = this.state;
     const keys = Object.keys(topics);
     const focusedKey = keys[focusedTopicIdx];
@@ -58,7 +61,7 @@ class Homepage extends React.Component {
       <div className='site'>
         <div className='topic-tray'>
           <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
-          <div key={focusedKey}>
+          <div key={`${focusedKey}-${topicSwitches}`}>
             {
               focusedTopic ? <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} /> : null
             }

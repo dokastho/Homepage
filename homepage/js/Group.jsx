@@ -21,9 +21,9 @@ class Group extends React.Component {
   }
 
   render() {
-    const { stories } = this.state;
+    const { stories, groupOrder } = this.state;
     return (
-      <div className='group'>
+      <div className='group' key={groupOrder}>
         {
           stories.map((story, i) => {
             return (story.type === "media" ? <Image id={story.uuid} keyNum={i} /> : <Story text={story.text} keyNum={i} />)

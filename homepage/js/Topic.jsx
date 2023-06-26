@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 import Group from './Group';
+import Scroller from './Scroller'
 
 class Topic extends React.Component {
 
@@ -8,13 +9,38 @@ class Topic extends React.Component {
     super(props);
     this.state = {
       name: "",
-      groups: {}
+      groups: {},
+      focusedGroupId: 0
     }
+    this.groupScroll = this.groupScroll.bind(this);
   }
 
   componentDidMount() {
     const { name, groups } = this.props.content;
-    this.setState({ name, groups });
+    const orderedGroupKeys = Object.keys(groups).map((key) => {
+      const group = groups[key]
+      return ({ id: key, groupOrder: group.groupOrder });
+    }).sort((a, b) => a.groupOrder - b.groupOrder);
+    this.setState({ name, groups, focusedGroupId: orderedGroupKeys[0].id });
+  }
+
+  groupScroll(direction) {
+    const { focusedGroupId, groups } = this.state;
+    const groupsKeys = Object.keys(groups);
+    const focusedGroupIdx = groupsKeys.indexOf(focusedGroupId);
+    if (direction === "up") {
+      if (focusedGroupIdx === 0) {
+        return;
+      }
+      const newFocusedGroupId = groupsKeys[focusedGroupIdx - 1]
+      this.setState({ focusedGroupId: newFocusedGroupId });
+    } else if (direction === "down") {
+      if (focusedGroupIdx === groupsKeys.length - 1) {
+        return;
+      }
+      const newFocusedGroupId = groupsKeys[focusedGroupIdx + 1]
+      this.setState({ focusedGroupId: newFocusedGroupId });
+    }
   }
 
   render() {
@@ -25,7 +51,8 @@ class Topic extends React.Component {
       content,
     } = this.props;
 
-    const { name, groups } = this.state;
+    const { name, groups, focusedGroupId } = this.state;
+    const focusedGroup = groups[focusedGroupId];
 
     // apply styles
     const { styles } = content;
@@ -35,21 +62,15 @@ class Topic extends React.Component {
       document.documentElement.style.setProperty(`--${v}`, pstyles[v]);
     })
 
-    // sort groups by groupOrder
-    const groupKeys = Object.keys(groups).map((groupId) => {
-      return ({ groupId: groupId, groupOrder: groups[groupId].groupOrder });
-    })
-    const sortedGroups = groupKeys.sort((a, b) => a.groupOrder - b.groupOrder);
-
-
     return (
       <div className='topic' key={topicIdx}>
+        <Scroller onScroll={this.groupScroll} />
         <h1>{name}</h1>
-        {
-          sortedGroups.map((group, i) => {
-            return (<Group content={groups[group.groupId]} />);
-          })
-        }
+        <div key={focusedGroupId}>
+          {
+            focusedGroup ? <Group content={focusedGroup} /> : null
+          }
+        </div>
         {
           topicIdx === 0 ? null : (
             <button onClick={() => { setTopicFocus(topicIdx - 1) }}>&lt;-</button>
