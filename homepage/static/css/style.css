@@ -19,7 +19,10 @@ h1 {
 
 /* mobile layout */
 @media only screen and (max-width: 1200px) {
-    .site {}
+    .site {
+        margin-right: 0%;
+        margin-left: 0%;
+    }
 }
 
 .topic-tray {
