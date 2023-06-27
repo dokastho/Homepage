@@ -59,13 +59,11 @@ class Homepage extends React.Component {
 
     return (
       <div className='site'>
-        <div className='topic-tray'>
+        <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
           <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
-          <div key={`${focusedKey}-${topicSwitches}`}>
-            {
-              focusedTopic ? <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} /> : null
-            }
-          </div>
+          {
+            focusedTopic ? <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} /> : null
+          }
         </div>
       </div>
     );

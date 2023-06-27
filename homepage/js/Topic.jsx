@@ -63,14 +63,12 @@ class Topic extends React.Component {
     })
 
     return (
-      <div className='topic' key={topicIdx}>
+      <div className='topic' key={`${topicIdx}-${focusedGroupId}`}>
         <Scroller onScroll={this.groupScroll} />
         <h1>{name}</h1>
-        <div key={focusedGroupId}>
-          {
-            focusedGroup ? <Group content={focusedGroup} /> : null
-          }
-        </div>
+        {
+          focusedGroup ? <Group content={focusedGroup} /> : null
+        }
         {
           topicIdx === 0 ? null : (
             <button onClick={() => { setTopicFocus(topicIdx - 1) }}>&lt;-</button>

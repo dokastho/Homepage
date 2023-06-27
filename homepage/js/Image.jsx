@@ -12,9 +12,7 @@ class Image extends React.Component {
       keyNum
     } = this.props;
     return (
-      <div>
-        <img src={`/api/v1/media/${id}/`} key={keyNum} className='image' />
-      </div>
+      <img src={`/api/v1/media/${id}/`} key={keyNum} className='image' />
     )
   }
 }

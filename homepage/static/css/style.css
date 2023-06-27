@@ -11,6 +11,7 @@ body {
     transition: all 0.2s;
     margin: 1vh;
     overflow: hidden;
+    font-size: 2em;
 }
 
 h1 {
@@ -26,7 +27,6 @@ h1 {
 }
 
 .topic-tray {
-    transition: all 0.2s;
     background-color: var(--alt);
     padding: 7.5vh;
     border-radius: 4rem;
@@ -36,17 +36,14 @@ h1 {
 }
 
 .picker {
-    transition: all 0.2s;
     background-color: aqua;
 }
 
 .topic {
-    transition: all 0.2s;
     background-color: orange;
 }
 
 .site {
-    transition: all 0.2s;
     margin-right: 20%;
     margin-left: 20%;
 }
