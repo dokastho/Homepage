@@ -2,6 +2,7 @@ import React from 'react'
 import Picker from './Picker';
 import Topic from './Topic';
 import { render } from 'react-dom';
+import Headbar from './Headbar';
 
 class Homepage extends React.Component {
 
@@ -59,6 +60,7 @@ class Homepage extends React.Component {
 
     return (
       <div className='site'>
+        <Headbar />
         <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
           <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
           {

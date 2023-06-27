@@ -66,6 +66,7 @@ class Topic extends React.Component {
       <div className='topic' key={`${topicIdx}-${focusedGroupId}`}>
         <Scroller onScroll={this.groupScroll} />
         <h1>{name}</h1>
+        <br/>
         {
           focusedGroup ? <Group content={focusedGroup} /> : null
         }

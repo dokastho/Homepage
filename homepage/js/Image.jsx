@@ -9,17 +9,20 @@ class Image extends React.Component {
   render() {
     const {
       id,
-      keyNum
+      keyNum,
+      className
     } = this.props;
+    const name = className || 'image'
     return (
-      <img src={`/api/v1/media/${id}/`} key={keyNum} className='image' />
+      <img src={`/api/v1/media/${id}/`} key={keyNum} className={name} />
     )
   }
 }
 
 Image.propTypes = {
   id: PropTypes.string.isRequired,
-  keyNum: PropTypes.number.isRequired
+  keyNum: PropTypes.number.isRequired,
+  className: PropTypes.string,
 };
 
 export default Image

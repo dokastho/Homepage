@@ -1,13 +1,15 @@
 :root {
-    --primary: #00326a;
-    --alt: #ffcb0b;
-    --trim: white;
+    --primary: white;
+    --alt: #1f4954;
+    --trim: black;
+    --text: white;
 }
 
 body {
     /* display: flex; */
     font-family: Futura;
-    background-color: var(--primary);
+    color: var(--text);
+    background-color: var(--alt);
     transition: all 0.2s;
     margin: 1vh;
     overflow: hidden;
@@ -18,21 +20,9 @@ h1 {
     font-weight: normal;
 }
 
-/* mobile layout */
-@media only screen and (max-width: 1200px) {
-    .site {
-        margin-right: 0%;
-        margin-left: 0%;
-    }
-}
-
 .topic-tray {
     background-color: var(--alt);
-    padding: 7.5vh;
-    border-radius: 4rem;
-    border: 0.25vh solid var(--trim);
-    height: 82.5vh;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 98vh;
 }
 
 .picker {
@@ -40,14 +30,29 @@ h1 {
 }
 
 .topic {
-    background-color: orange;
 }
 
-.site {
-    margin-right: 20%;
-    margin-left: 20%;
+.group {
+    display: flex;
 }
 
 .image {
-    width: -webkit-fill-available;
+    width: 8em;
+}
+
+.story {
+    padding: 1em;
+}
+
+/* mobile layout */
+@media only screen and (max-width: 1200px) {
+}
+
+.headbar {
+    display: flex;
+}
+
+.headbar-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
