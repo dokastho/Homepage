@@ -45,9 +45,7 @@ class Topic extends React.Component {
 
   render() {
     const {
-      setTopicFocus,
       topicIdx,
-      maxTopicIdx,
       content,
     } = this.props;
 
@@ -70,16 +68,6 @@ class Topic extends React.Component {
         {
           focusedGroup ? <Group content={focusedGroup} /> : null
         }
-        {
-          topicIdx === 0 ? null : (
-            <button onClick={() => { setTopicFocus(topicIdx - 1) }}>&lt;-</button>
-          )
-        }
-        {
-          topicIdx === maxTopicIdx ? null : (
-            <button onClick={() => { setTopicFocus(topicIdx + 1) }}>-&gt;</button>
-          )
-        }
       </div>
     );
   }
@@ -89,9 +77,7 @@ Topic.propTypes = {
   // prop types go here
   content: PropTypes.object,
   topicIdx: PropTypes.number.isRequired,
-  maxTopicIdx: PropTypes.number.isRequired,
   // methods:
-  // setTopicFocus
 };
 
 Topic.defaultProps = {

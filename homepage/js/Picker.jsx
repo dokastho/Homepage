@@ -1,23 +1,30 @@
 import PropTypes from 'prop-types';
 import React from 'react'
+import { SmallIconWithText } from './smallIcon';
 
 class Picker extends React.Component {
 
   constructor(props) {
     super(props);
+    this.setTopicFocusWrapper = this.setTopicFocusWrapper.bind(this);
+  }
+
+  setTopicFocusWrapper(args) {
+    const { idx } = args;
+    const { setTopicFocus } = this.props;
+    setTopicFocus(idx);
   }
 
   render() {
     const {
       topics,
-      setTopicFocus,
     } = this.props;
     return (
       <div className='picker'>
         {
           topics.map((topic) => {
             const { idx, name } = topic;
-            return <button id={idx} key={idx} onClick={() => { setTopicFocus(idx) }}>{name}</button>
+            return <SmallIconWithText src={`/static/img/${name}.png`} text={name} keyName={`${idx}`} onClick={this.setTopicFocusWrapper} args={{ idx }} />
           })
         }
       </div>

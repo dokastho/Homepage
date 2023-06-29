@@ -4,11 +4,11 @@ INSERT INTO users(username, fullname, email, password)
 VALUES ('dokastho', 'Thomas Dokas', 'dokastho@umich.edu', 'password');
 
 INSERT INTO topics(name, owner, styles)
-VALUES ('About Me', 'dokastho', '{"primary": "white", "alt": "#1f4954", "trim": "black", "text": "white"}');
+VALUES ('Bio', 'dokastho', '{"primary": "white", "alt": "#1f4954", "trim": "black", "text": "white"}');
 INSERT INTO topics(name, owner, styles)
-VALUES ('Education', 'dokastho', '{"primary": "#00326a", "alt": "#ffcb0b", "trim": "white", "text": "black"}');
+VALUES ('Education', 'dokastho', '{"primary": "#ffcb0b", "alt": "#00326a", "trim": "white", "text": "#ffcb0b"}');
 INSERT INTO topics(name, owner, styles)
-VALUES ('Experience', 'dokastho', '{"primary": "#00095b", "alt": "white", "trim": "gray", "text": "black"}');
+VALUES ('Experience', 'dokastho', '{"primary": "white", "alt": "#00095b", "trim": "gray", "text": "white"}');
 
 INSERT INTO groups(owner, topicId, groupOrder)
 VALUES ('dokastho', 1, 1);

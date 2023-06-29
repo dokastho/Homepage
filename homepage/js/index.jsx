@@ -60,11 +60,13 @@ class Homepage extends React.Component {
 
     return (
       <div className='site'>
-        <Headbar />
-        <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
+        <div className='static-navigator'>
+          <Headbar />
           <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
+        </div>
+        <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
           {
-            focusedTopic ? <Topic setTopicFocus={this.setTopicFocus} content={focusedTopic} topicIdx={focusedTopicIdx} maxTopicIdx={maxTopicIdx} /> : null
+            focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
           }
         </div>
       </div>
