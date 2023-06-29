@@ -14,7 +14,7 @@ class Image extends React.Component {
     } = this.props;
     const name = className || 'image'
     return (
-      <img src={`/api/v1/media/${id}/`} key={keyNum} className={name} />
+      <img src={`/api/v1/media/get/${id}/`} key={keyNum} className={name} />
     )
   }
 }

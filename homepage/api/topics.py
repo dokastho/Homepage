@@ -10,13 +10,13 @@ def fetch_topics_by_owner():
     """Fetch topics for logged in owner."""
     content = dict()
     content["logname"]: get_logname()
-    
+
     owner: str = MY_LOGNAME  # remove me
     content["logname"] = owner  # remove me
 
     # get topics owned by 'owner'
     connection = get_db()
-    
+
     # topics
     content["topics"] = dict()
     cur = connection.execute("SELECT * FROM topics WHERE owner == ?", (owner,))
@@ -26,7 +26,7 @@ def fetch_topics_by_owner():
         topic_id = topic["topicId"]
         content["topics"][topic_id] = topic
         pass
-    
+
     # groups
     cur = connection.execute("SELECT * FROM groups WHERE owner == ?", (owner,))
     groups = cur.fetchall()
