@@ -18,9 +18,7 @@ def show_wip():
     if logname is None:
         logname = "log in"
     
-    context = dict({"logname": logname})
-
-    return flask.render_template("wip.html", **context)
+    return flask.render_template("wip.html")
 
 
 @homepage.app.route("/user/<uname>/")

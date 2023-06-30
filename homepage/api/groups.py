@@ -1,9 +1,16 @@
 import flask
 import homepage
 from homepage.common.model import get_db, get_logname
+from homepage.common.utils import get_group
 
 
-@homepage.app.route("/api/v1/groups/upload/")
+@homepage.app.route("/api/v1/groups/get/<groupId>/", methods=["GET"])
+def fetch_group(groupId):
+    data = get_group(groupId)
+    return flask.jsonify(data), 200
+
+
+@homepage.app.route("/api/v1/groups/upload/", methods=["POST"])
 def upload_group():
     logname = get_logname()
     if logname is None:
@@ -28,7 +35,7 @@ def upload_group():
     return flask.Response(status=204)
 
 
-@homepage.app.route("/api/v1/groups/delete/")
+@homepage.app.route("/api/v1/groups/delete/", methods=["POST"])
 def delete_group():
     logname = get_logname()
     if logname is None:
@@ -50,3 +57,6 @@ def delete_group():
     )
     cur.fetchone()
     return flask.Response(status=204)
+
+
+# need update

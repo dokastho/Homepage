@@ -1,9 +1,16 @@
 import flask
 import homepage
 from homepage.common.model import get_db, get_logname
+from homepage.common.utils import get_story
 
 
-@homepage.app.route("/api/v1/stories/upload/")
+@homepage.app.route("/api/v1/stories/get/<storyId>/", methods=['GET'])
+def fetch_story(storyId):
+    data = get_story(storyId)
+    return flask.jsonify(data), 200
+
+
+@homepage.app.route("/api/v1/stories/upload/", methods=['POST'])
 def upload_story():
     logname = get_logname()
     if logname is None:
@@ -31,7 +38,7 @@ def upload_story():
     return flask.Response(status=204)
 
 
-@homepage.app.route("/api/v1/stories/delete/")
+@homepage.app.route("/api/v1/stories/delete/", methods=['POST'])
 def delete_story():
     logname = get_logname()
     if logname is None:
@@ -50,3 +57,6 @@ def delete_story():
     )
     cur.fetchone()
     return flask.Response(status=204)
+
+
+# @homepage.app.route("/api/v1/stories/delete/", methods=['POST'])
