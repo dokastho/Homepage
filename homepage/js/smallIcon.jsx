@@ -30,11 +30,9 @@ class SmallIconWithText extends React.Component {
         <img src={src} key={keyName} className='small-icon-img' />
         {
           <div className='small-icon-label'>
-            <h5>
-              {
-                hovering ? text : 'hidden'
-              }
-            </h5>
+            {
+              hovering ? <h5>{text}</h5> : <br />
+            }
           </div>
         }
       </div>

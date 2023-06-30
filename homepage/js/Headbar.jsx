@@ -9,9 +9,12 @@ class Headbar extends React.Component {
 
   render() {
     return (
-      <div className='headbar'>
-        <div className='headbar-item'><h5>Thomas Dokas</h5></div>
-        <div className='headbar-item'><h5>@dokastho on all platforms</h5></div>
+      <div>
+        <div className='headbar'>
+          <div className='headbar-item'><h5>Thomas Dokas</h5></div>
+          <div className='headbar-item'><h5>@dokastho on all platforms</h5></div>
+        </div>
+        <hr />
       </div>
     );
   }
