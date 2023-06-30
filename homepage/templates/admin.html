@@ -10,11 +10,15 @@
         <h4 style="text-align: center">Click to Edit</h4>
         <br />
         {% for topicId, topic in topics.items() %}
-        <h4><a href="/edit/topic/{{topicId}}/">Topic {{topicId}}: {{topic.name}}</a></h4>
+        <h4><a href="/edit/topics/{{topicId}}/">Topic {{topicId}}: {{topic.name}}</a></h4>
         {% for groupId, group in topic["groups"].items() %}
-        <h5><a href="/edit/group/{{groupId}}/">Group {{groupId}}</a></h5>
+        <h5><a href="/edit/groups/{{groupId}}/">Group {{groupId}} (order {{group.groupOrder}})</a></h5>
         {% for story in group.stories %}
-        <h5><a href="/edit/story/{{storyId}}/">Story {{story.storyId}}: {{story.text}}</a></h5>
+        {% if story.type == "media" %}
+        <h5><a href="/edit/media/{{story.mediaId}}/">Media {{story.mediaId}}: {{story.uuid}}</a></h5>
+        {% else %}
+        <h5><a href="/edit/stories/{{story.storyId}}/">Story {{story.storyId}}: {{story.text}}</a></h5>
+        {% endif %}
         {% endfor %}
         {% endfor %}
         <br />

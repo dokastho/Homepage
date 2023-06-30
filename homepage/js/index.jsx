@@ -50,20 +50,19 @@ class Homepage extends React.Component {
       logname,
       topics,
       focusedTopicIdx,
-      maxTopicIdx,
       topicSwitches,
     } = this.state;
     const keys = Object.keys(topics);
     const focusedKey = keys[focusedTopicIdx];
     const focusedTopic = topics[focusedKey];
 
-    const pickerPairs = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name }); });
+    const pickerTopics = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name, icon: topics[topicId].icon }); });
 
     return (
       <div className='site'>
         <div className='static-navigator'>
           <Headbar />
-          <Picker setTopicFocus={this.setTopicFocus} topics={pickerPairs} />
+          <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
         </div>
         <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
           {

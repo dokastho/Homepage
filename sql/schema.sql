@@ -15,6 +15,7 @@ CREATE TABLE topics(
   name VARCHAR(64) NOT NULL,
   owner VARCHAR(20) NOT NULL,
   styles VARCHAR(256) NOT NULL,
+  icon VARCHAR(64) NOT NULL,
   FOREIGN KEY(owner) REFERENCES users(username)
 );
 
@@ -33,7 +34,7 @@ CREATE TABLE media(
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
   groupId INTEGER NOT NULL,
-  topicOrder INTEGER NOT NULL,
+  storyOrder INTEGER NOT NULL,
   FOREIGN KEY(topicId) REFERENCES topics(topicId),
   FOREIGN KEY(groupId) REFERENCES groups(groupId),
   FOREIGN KEY(owner) REFERENCES users(username)
@@ -45,7 +46,7 @@ CREATE TABLE stories(
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
   groupId INTEGER NOT NULL,
-  topicOrder INTEGER NOT NULL,
+  storyOrder INTEGER NOT NULL,
   FOREIGN KEY(topicId) REFERENCES topics(topicId),
   FOREIGN KEY(groupId) REFERENCES groups(groupId),
   FOREIGN KEY(owner) REFERENCES users(username)

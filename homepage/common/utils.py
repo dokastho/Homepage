@@ -57,7 +57,7 @@ def get_topic(topicId):
     logname = get_logname()
     if logname is None:
         flask.abort(403)
-        
+
     connection = get_db()
 
     cur = connection.execute(
@@ -100,6 +100,24 @@ def get_story(storyId):
         "SELECT * FROM stories WHERE storyId = ? AND owner = ?",
         (
             storyId,
+            logname,
+        ),
+    )
+    data = cur.fetchone()
+    return data
+
+
+def get_media(mediaId):
+    logname = get_logname()
+    if logname is None:
+        flask.abort(403)
+
+    connection = get_db()
+
+    cur = connection.execute(
+        "SELECT * FROM media WHERE mediaId = ? AND owner = ?",
+        (
+            mediaId,
             logname,
         ),
     )

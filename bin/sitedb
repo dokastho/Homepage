@@ -29,7 +29,7 @@ case $1 in
     ;;
   "dump")
     sqlite3 -batch -line var/homepage.sqlite3 'select * from users'
-    sqlite3 -batch -line var/homepage.sqlite3 'select * from pages'
+    sqlite3 -batch -line var/homepage.sqlite3 'select * from topics'
     ;;
   *)
     usage

@@ -6,15 +6,14 @@
         <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
     </head>
     <body id="body">
-        <form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
-            {% if badlogin %}
-            <div style="color:red;">Incorrect username/password. Please try again</div>
+        <form action="/api/v1/groups/update/{{groupId}}/" method="post" enctype="multipart/form-data">
+            <label>Group Order</label>
             <br />
-            {% endif %}
-            <input type="text" name="username" required/>
-            <input type="password" name="password" required/>
-            <input type="submit" value="login"/>
-            <input type="hidden" name="operation" value="login"/>
+            <input type="number" name="groupOrder" value={{groupOrder}} required/>
+            <br />
+            <input type="submit"/>
         </form>
+        <button href="/new/stories/?groupId={{groupId}}">Add a new story</button>
+        <button href="/new/media/?groupId={{groupId}}">Add a new media</button>
     </body>
 </html>

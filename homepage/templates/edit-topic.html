@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Thomas Dokas</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+    </head>
+    <body id="body">
+        <h1>Topic {{topicId}}: {{name}}</h1>
+        <form action="/api/v1/topics/update/{{topicId}}/" method="post" enctype="multipart/form-data">
+            <label>Topic Name</label>
+            <br />
+            <input type="text" name="name" value="{{name}}" required/>
+            <br />
+            <label>Icon</label>
+            <br />
+            <input type="text" name="icon" value="{{icon}}" required/>
+            <br />
+            <label>Styles</label>
+            <br />
+            <input type="textarea" size="256" name="styles" value="{{styles}}" required/>
+            <br />
+            <input type="submit"/>
+        </form>
+        <button href="/new/groups/?topicId={{topicId}}">Add a new group</button>
+    </body>
+</html>

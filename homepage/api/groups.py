@@ -10,6 +10,44 @@ def fetch_group(groupId):
     return flask.jsonify(data), 200
 
 
+@homepage.app.route("/api/v1/groups/update/<groupId>/", methods=["POST"])
+def update_group(groupId: int):
+    """Update a topic."""
+
+    connection = get_db()
+
+    # get values from body
+    body = flask.request.form
+    # body extists?
+    if body is None:
+        flask.abort(400)
+    # fields in body?
+    if (
+        "groupOrder" not in body
+    ):
+        flask.abort(400)
+    # get user
+    logname = get_logname()
+    if logname is None:
+        flask.abort(403)
+
+    cur = connection.execute(
+        "UPDATE groups "
+        "SET groupOrder = ?"
+        "WHERE owner = ? "
+        "AND groupId = ?",
+        (
+            body["groupOrder"],
+            logname,
+            groupId,
+        ),
+    )
+
+    cur.fetchone()
+
+    return flask.redirect('/admin/')
+
+
 @homepage.app.route("/api/v1/groups/upload/", methods=["POST"])
 def upload_group():
     logname = get_logname()
@@ -57,6 +95,3 @@ def delete_group():
     )
     cur.fetchone()
     return flask.Response(status=204)
-
-
-# need update

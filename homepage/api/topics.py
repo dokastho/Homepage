@@ -11,25 +11,22 @@ def fetch_topic(topicId):
     return flask.jsonify(data), 200
 
 
-@homepage.app.route("/api/v1/topic/update/<tn>/", methods=["PUT"])
-def update_topic(tn: int):
+@homepage.app.route("/api/v1/topics/update/<topicId>/", methods=["POST"])
+def update_topic(topicId: int):
     """Update a topic."""
-    # function will abort if the page doesn't exist
-    get_topic(tn)
 
     connection = get_db()
 
     # get values from body
-    body = flask.request.get_json()
+    body = flask.request.form
     # body extists?
     if body is None:
         flask.abort(400)
     # fields in body?
     if (
-        "title" not in body
-        or "description" not in body
-        or "body" not in body
-        or "route" not in body
+        "name" not in body or
+        "icon" not in body or
+        "styles" not in body
     ):
         flask.abort(400)
     # get user
@@ -37,28 +34,28 @@ def update_topic(tn: int):
     if logname is None:
         flask.abort(403)
 
-    # create page in db
     cur = connection.execute(
         "UPDATE topics "
-        "SET title = ?, description = ?, body = ?, route = ?"
-        "WHERE logname == ? "
-        "AND topicId == ?",
+        "SET name = ?,"
+        "icon = ?,"
+        "styles = ?"
+        "WHERE owner = ? "
+        "AND topicId = ?",
         (
-            body["title"],
-            body["description"],
-            body["body"],
-            body["route"],
+            body["name"],
+            body["icon"],
+            body["styles"],
             logname,
-            tn,
+            topicId,
         ),
     )
 
     cur.fetchone()
 
-    return 201
+    return flask.redirect('/admin/')
 
 
-@homepage.app.route("/api/v1/topic/create/", methods=["POST"])
+@homepage.app.route("/api/v1/topics/create/", methods=["POST"])
 def create_topic():
     """Create a topic."""
     connection = get_db()
@@ -94,7 +91,7 @@ def create_topic():
     return flask.Response(status=201)
 
 
-@homepage.app.route("/api/v1/topic/delete/<tn>/", methods=["DELETE"])
+@homepage.app.route("/api/v1/topics/delete/<tn>/", methods=["DELETE"])
 def delete_topic(tn: int):
     """Delete a topic."""
     # function will abort if the page doesn't exist
@@ -121,7 +118,7 @@ def delete_topic(tn: int):
     return flask.Response(status=201)
 
 
-@homepage.app.route("/api/v1/topic/fetch/<tn>/", methods=["GET"])
+@homepage.app.route("/api/v1/topics/fetch/<tn>/", methods=["GET"])
 def fetch_page_by_number(tn: int):
     """Fetch a topic."""
 
@@ -131,7 +128,7 @@ def fetch_page_by_number(tn: int):
 def get_topic(pn: int) -> json:
     """Get topic from db. Used more than once so it's a helper."""
     connection = get_db()
-    cur = connection.execute("SELECT * " "FROM topics " "WHERE topcId == ?", (pn,))
+    cur = connection.execute("SELECT * " "FROM topics " "WHERE topicId == ?", (pn,))
 
     topic = cur.fetchone()
     if topic is None:
