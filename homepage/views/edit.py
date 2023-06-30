@@ -1,4 +1,4 @@
-"""Render an admin's edit page for groups, topics, stories & media"""
+"""Render an admin's edit page for one group, topic, story or media"""
 
 import homepage
 import flask

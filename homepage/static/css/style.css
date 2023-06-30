@@ -12,8 +12,13 @@ body {
     background-color: var(--alt);
     /* transition: all 0.2s; */
     margin: 1vh;
-    overflow: hidden;
+    padding: 1rem;
     font-size: 2rem;
+}
+
+#body {
+    overflow: hidden;
+    padding: 0;
 }
 
 h1 {
@@ -26,10 +31,21 @@ h2 {
     margin: 0;
 }
 
+h4 {
+    font-weight: normal;
+    font-size: 2rem;
+    margin: 0;
+}
+
 h5 {
     font-weight: normal;
     font-size: 1rem;
     margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text);
 }
 
 .svg-link {

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Thomas Dokas</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+    </head>
+    <body>
+        <br />
+        <h4 style="text-align: center">Click to Edit</h4>
+        <br />
+        {% for topicId, topic in topics.items() %}
+        <h4><a href="/edit/topic/{{topicId}}/">Topic {{topicId}}: {{topic.name}}</a></h4>
+        {% for groupId, group in topic["groups"].items() %}
+        <h5><a href="/edit/group/{{groupId}}/">Group {{groupId}}</a></h5>
+        {% for story in group.stories %}
+        <h5><a href="/edit/story/{{storyId}}/">Story {{story.storyId}}: {{story.text}}</a></h5>
+        {% endfor %}
+        {% endfor %}
+        <br />
+        {% endfor %}
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Thomas Dokas</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+    </head>
+    <body id="body">
+        <form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
+            {% if badlogin %}
+            <div style="color:red;">Incorrect username/password. Please try again</div>
+            <br />
+            {% endif %}
+            <input type="text" name="username" required/>
+            <input type="password" name="password" required/>
+            <input type="submit" value="login"/>
+            <input type="hidden" name="operation" value="login"/>
+        </form>
+    </body>
+</html>
