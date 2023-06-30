@@ -3,6 +3,7 @@ import Picker from './Picker';
 import Topic from './Topic';
 import { render } from 'react-dom';
 import Headbar from './Headbar';
+import Footbar from './Footbar';
 
 class Homepage extends React.Component {
 
@@ -69,6 +70,7 @@ class Homepage extends React.Component {
             focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
           }
         </div>
+        <Footbar />
       </div>
     );
   }

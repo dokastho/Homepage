@@ -24,7 +24,7 @@ class Picker extends React.Component {
         {
           topics.map((topic) => {
             const { idx, name } = topic;
-            return <SmallIconWithText src={`/static/img/${name}.png`} text={name} keyName={`${idx}`} onClick={this.setTopicFocusWrapper} args={{ idx }} />
+            return <SmallIconWithText src={`/static/img/${name}.svg`} text={name} keyName={`${idx}`} onClick={this.setTopicFocusWrapper} args={{ idx }} />
           })
         }
       </div>

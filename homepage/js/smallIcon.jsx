@@ -31,7 +31,7 @@ class SmallIconWithText extends React.Component {
         {
           <div className='small-icon-label'>
             {
-              hovering ? <h5>{text}</h5> : <br />
+              hovering ? <h5>{text}</h5> : null
             }
           </div>
         }

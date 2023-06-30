@@ -3,13 +3,14 @@
     --alt: #1f4954;
     --trim: black;
     --text: white;
+    --alt-text: var(--alt);
 }
 
 body {
     font-family: Futura;
     color: var(--text);
     background-color: var(--alt);
-    transition: all 0.2s;
+    /* transition: all 0.2s; */
     margin: 1vh;
     overflow: hidden;
     font-size: 2rem;
@@ -31,9 +32,15 @@ h5 {
     margin: 0;
 }
 
+.svg-link {
+    color: var(--text);
+    text-decoration: none;
+}
+
 .static-navigator {
     display: grid;
     place-items: center;
+    height: 17vh;
 }
 
 .headbar {
@@ -55,19 +62,19 @@ h5 {
 .small-icon-with-text {
     padding: 0.5rem;
     width: 5rem;
+    height: 4rem;
     border-radius: 0.5rem;
     text-align: center;
     cursor: pointer;
 }
 
 .small-icon-with-text:hover {
-    transition: all 0.2s;
     padding: 0.5rem;
     background-color: lightgray;
 }
 
 .small-icon-label {
-    color: var(--alt);
+    color: var(--alt-text);
 }
 
 .small-icon-img {
@@ -75,8 +82,9 @@ h5 {
 }
 
 .topic-tray {
+    /* transition: all 0.2s; */
     background-color: var(--alt);
-    height: 98vh;
+    height: 73vh;
 }
 
 .topic {}
@@ -91,6 +99,13 @@ h5 {
 
 .story {
     padding: 1em;
+}
+
+.footbar {
+    display: flex;
+    padding: 2vh;
+    height: 4vh;
+    justify-content: space-between;
 }
 
 /* mobile layout */
