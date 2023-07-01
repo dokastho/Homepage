@@ -97,8 +97,7 @@ def delete_topic(topicId: int):
 
     # delete topic from db
     cur = connection.execute(
-        "DELETE FROM topics WHERE topicId == ? ",
-        "AND owner == ?",
+        "DELETE FROM topics WHERE topicId == ? AND owner == ?",
         (
             topicId,
             logname,
@@ -107,4 +106,4 @@ def delete_topic(topicId: int):
 
     cur.fetchone()
 
-    return flask.redirect('/accounts/')
+    return flask.redirect("/admin/")
