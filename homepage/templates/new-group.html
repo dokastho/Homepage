@@ -6,14 +6,16 @@
         <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
     </head>
     <body id="body">
-        <form action="/api/v1/stories/update/{{mediaId}}/" method="post" enctype="multipart/form-data">
-            <label>Story Order</label>
+        <form action="/api/v1/groups/upload/" method="post" enctype="multipart/form-data">
+            <label>Topic ID</label>
             <br />
-            <input type="number" name="storyOrder" value={{storyOrder}} required/>
+            <input type="number" name="topicId" value={{topicId}} required/>
+            <br />
+            <label>Group Order</label>
+            <br />
+            <input type="number" name="groupOrder" required/>
             <br />
             <input type="submit"/>
         </form>
-        <br />
-        <a href="/api/v1/media/delete/{{mediaId}}/?filename={{uuid}}">Delete this media</a>
     </body>
 </html>

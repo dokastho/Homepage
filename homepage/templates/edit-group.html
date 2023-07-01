@@ -13,7 +13,9 @@
             <br />
             <input type="submit"/>
         </form>
-        <button href="/new/stories/?groupId={{groupId}}">Add a new story</button>
-        <button href="/new/media/?groupId={{groupId}}">Add a new media</button>
+        <a href="/new/stories/?groupId={{groupId}}&amp;topicId={{topicId}}">Add a new story</a>
+        <a href="/new/media/?groupId={{groupId}}&amp;topicId={{topicId}}">Add a new media</a>
+        <br />
+        <a href="/api/v1/groups/delete/{{groupId}}/">Delete this group</a>
     </body>
 </html>

@@ -16,7 +16,7 @@ CREATE TABLE topics(
   owner VARCHAR(20) NOT NULL,
   styles VARCHAR(256) NOT NULL,
   icon VARCHAR(64) NOT NULL,
-  FOREIGN KEY(owner) REFERENCES users(username)
+  FOREIGN KEY(owner) REFERENCES users(username) ON DELETE CASCADE
 );
 
 CREATE TABLE groups(
@@ -24,8 +24,8 @@ CREATE TABLE groups(
   owner VARCHAR(20) NOT NULL,
   topicId INTEGER NOT NULL,
   groupOrder INTEGER NOT NULL,
-  FOREIGN KEY(topicId) REFERENCES topics(topicId),
-  FOREIGN KEY(owner) REFERENCES users(username)
+  FOREIGN KEY(topicId) REFERENCES topics(topicId) ON DELETE CASCADE,
+  FOREIGN KEY(owner) REFERENCES users(username) ON DELETE CASCADE
 );
 
 CREATE TABLE media(
@@ -35,9 +35,9 @@ CREATE TABLE media(
   topicId INTEGER NOT NULL,
   groupId INTEGER NOT NULL,
   storyOrder INTEGER NOT NULL,
-  FOREIGN KEY(topicId) REFERENCES topics(topicId),
-  FOREIGN KEY(groupId) REFERENCES groups(groupId),
-  FOREIGN KEY(owner) REFERENCES users(username)
+  FOREIGN KEY(topicId) REFERENCES topics(topicId) ON DELETE CASCADE,
+  FOREIGN KEY(groupId) REFERENCES groups(groupId) ON DELETE CASCADE,
+  FOREIGN KEY(owner) REFERENCES users(username) ON DELETE CASCADE
 );
 
 CREATE TABLE stories(
@@ -47,7 +47,7 @@ CREATE TABLE stories(
   topicId INTEGER NOT NULL,
   groupId INTEGER NOT NULL,
   storyOrder INTEGER NOT NULL,
-  FOREIGN KEY(topicId) REFERENCES topics(topicId),
-  FOREIGN KEY(groupId) REFERENCES groups(groupId),
-  FOREIGN KEY(owner) REFERENCES users(username)
+  FOREIGN KEY(topicId) REFERENCES topics(topicId) ON DELETE CASCADE,
+  FOREIGN KEY(groupId) REFERENCES groups(groupId) ON DELETE CASCADE,
+  FOREIGN KEY(owner) REFERENCES users(username) ON DELETE CASCADE
 );

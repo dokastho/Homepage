@@ -6,24 +6,20 @@
         <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
     </head>
     <body id="body">
-        <h1>Topic {{topicId}}: {{name}}</h1>
-        <form action="/api/v1/topics/update/{{topicId}}/" method="post" enctype="multipart/form-data">
+        <form action="/api/v1/topics/upload/" method="post" enctype="multipart/form-data">
             <label>Topic Name</label>
             <br />
-            <input type="text" name="name" value="{{name}}" required/>
+            <input type="text" name="name" required/>
             <br />
             <label>Icon</label>
             <br />
-            <input type="text" name="icon" value="{{icon}}" required/>
+            <input type="text" name="icon" required/>
             <br />
             <label>Styles</label>
             <br />
-            <input type="textarea" size="256" name="styles" value="{{styles}}" required/>
+            <input type="textarea" size="256" name="styles" required/>
             <br />
             <input type="submit"/>
         </form>
-        <a href="/new/groups/?topicId={{topicId}}">Add a new group</a>
-        <br />
-        <a href="/api/v1/topics/delete/{{topicId}}/">Delete this topic</a>
     </body>
 </html>

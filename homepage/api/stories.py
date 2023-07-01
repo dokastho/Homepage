@@ -39,7 +39,7 @@ def update_story(storyId: int):
         "WHERE owner = ? "
         "AND storyId = ?",
         (
-            body["groupOrder"],
+            body["storyOrder"],
             body["text"],
             logname,
             storyId,
@@ -57,47 +57,42 @@ def upload_story():
     if logname is None:
         flask.abort(403)
 
-    body = flask.request.json
-    for arg in ["text", "topicId", "groupId", "topicOrder"]:
+    body = flask.request.form
+    for arg in ["text", "topicId", "groupId", "storyOrder"]:
         if arg not in body:
             flask.abort(400)
 
     connection = get_db()
 
     cur = connection.execute(
-        "INSERT INTO stories (text, owner, topicId, groupId, topicOrder)"
+        "INSERT INTO stories (text, owner, topicId, groupId, storyOrder)"
         "VALUES (?, ?, ?, ?, ?)",
         (
             body["text"],
             logname,
             body["topicId"],
             body["groupId"],
-            body["topicOrder"],
+            body["storyOrder"],
         ),
     )
     cur.fetchone()
-    return flask.Response(status=204)
+    return flask.redirect('/admin/')
 
 
-@homepage.app.route("/api/v1/stories/delete/", methods=['POST'])
-def delete_story():
+@homepage.app.route("/api/v1/stories/delete/<storyId>/")
+def delete_story(storyId):
     logname = get_logname()
     if logname is None:
         flask.abort(403)
 
-    body = flask.request.json
-
     connection = get_db()
 
     cur = connection.execute(
-        "DELETE FROM groups" "WHERE owner = ? AND storyId = ?",
+        "DELETE FROM stories WHERE owner == ? AND storyId == ?",
         (
             logname,
-            body["storyId"],
+            storyId,
         ),
     )
     cur.fetchone()
-    return flask.Response(status=204)
-
-
-# @homepage.app.route("/api/v1/stories/delete/", methods=['POST'])
+    return flask.redirect('/admin/')

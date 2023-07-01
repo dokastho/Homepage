@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Thomas Dokas</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+    </head>
+    <body id="body">
+        <form action="/api/v1/stories/upload/" method="post" enctype="multipart/form-data">
+            <label>Story Order</label>
+            <br />
+            <input type="number" name="storyOrder" required/>
+            <br />
+            <label>Story Text</label>
+            <br />
+            <input type="textarea" name="text" size="256" required/>
+            <br />
+            <label>Topic ID</label>
+            <br />
+            <input type="number" name="topicId" value={{topicId}} required/>
+            <br />
+            <label>Group ID</label>
+            <br />
+            <input type="number" name="groupId" value={{groupId}} required/>
+            <br />
+            <input type="submit"/>
+        </form>
+    </body>
+</html>

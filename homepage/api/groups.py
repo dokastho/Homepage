@@ -54,7 +54,7 @@ def upload_group():
     if logname is None:
         flask.abort(403)
 
-    body = flask.request.json
+    body = flask.request.form
     for arg in ["topicId", "groupOrder"]:
         if arg not in body:
             flask.abort(400)
@@ -70,28 +70,23 @@ def upload_group():
         ),
     )
     cur.fetchone()
-    return flask.Response(status=204)
+    return flask.redirect('/admin/')
 
 
-@homepage.app.route("/api/v1/groups/delete/", methods=["POST"])
-def delete_group():
+@homepage.app.route("/api/v1/groups/delete/<groupId>/")
+def delete_group(groupId):
     logname = get_logname()
     if logname is None:
         flask.abort(403)
 
-    body = flask.request.json
-    for arg in ["groupId"]:
-        if arg not in body:
-            flask.abort(400)
-
     connection = get_db()
 
     cur = connection.execute(
-        "DELETE FROM groups" "WHERE owner = ? AND groupId = ?",
+        "DELETE FROM groups WHERE owner = ? AND groupId = ?",
         (
             logname,
-            body["groupId"],
+            groupId,
         ),
     )
     cur.fetchone()
-    return flask.Response(status=204)
+    return flask.redirect('/admin/')
