@@ -9,6 +9,8 @@
         <form action="/api/v1/groups/update/{{groupId}}/" method="post" enctype="multipart/form-data">
             <label>Group Order</label>
             <br />
+            <input type="text" name="name" value="{{name}}" required/>
+            <br />
             <input type="number" name="groupOrder" value={{groupOrder}} required/>
             <br />
             <input type="submit"/>

@@ -9,6 +9,7 @@ class Group extends React.Component {
     super(props);
     this.state = {
       // state attributes go here
+      name: "",
       stories: [],
       groupOrder: 0,
     };
@@ -16,14 +17,15 @@ class Group extends React.Component {
 
   componentDidMount() {
     const { content } = this.props;
-    const { stories, groupOrder } = content;
-    this.setState({ stories, groupOrder });
+    const { name, stories, groupOrder } = content;
+    this.setState({ name, stories, groupOrder });
   }
 
   render() {
-    const { stories, groupOrder } = this.state;
+    const { name, stories, groupOrder } = this.state;
     return (
       <div className='group' key={groupOrder}>
+        <h1>{name}</h1>
         {
           stories.map((story, i) => {
             return (story.type === "media" ? <Image id={story.uuid} keyNum={i} /> : <Story text={story.text} keyNum={i} />)

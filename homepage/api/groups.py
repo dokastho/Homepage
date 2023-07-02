@@ -33,11 +33,13 @@ def update_group(groupId: int):
 
     cur = connection.execute(
         "UPDATE groups "
-        "SET groupOrder = ?"
+        "SET groupOrder = ?,"
+        "name = ? "
         "WHERE owner = ? "
         "AND groupId = ?",
         (
             body["groupOrder"],
+            body["name"],
             logname,
             groupId,
         ),
@@ -55,16 +57,17 @@ def upload_group():
         flask.abort(403)
 
     body = flask.request.form
-    for arg in ["topicId", "groupOrder"]:
+    for arg in ["topicId", "name", "groupOrder"]:
         if arg not in body:
             flask.abort(400)
 
     connection = get_db()
 
     cur = connection.execute(
-        "INSERT INTO groups (owner, topicId, groupOrder)" "VALUES (?, ?, ?)",
+        "INSERT INTO groups (owner, name, topicId, groupOrder)" "VALUES (?, ?, ?)",
         (
             logname,
+            body["name"],
             body["topicId"],
             body["groupOrder"],
         ),
