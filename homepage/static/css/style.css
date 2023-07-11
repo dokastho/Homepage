@@ -106,15 +106,18 @@ a {
 .topic {}
 
 .group {
-    display: flex;
+    padding: 2rem;
+    display: inline-block;
 }
 
 .image {
-    width: 8em;
+    float: left;
+    width: 40%;
 }
 
 .story {
-    padding: 1em;
+    float: left;
+    width: 60%;
 }
 
 .footbar {

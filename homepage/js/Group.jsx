@@ -18,7 +18,8 @@ class Group extends React.Component {
   componentDidMount() {
     const { content } = this.props;
     const { name, stories, groupOrder } = content;
-    this.setState({ name, stories, groupOrder });
+    const sortedStories = stories.sort((a, b) => a.storyOrder - b.storyOrder);
+    this.setState({ name: name, stories: sortedStories, groupOrder: groupOrder });
   }
 
   render() {

@@ -20,9 +20,9 @@ VALUES ('I love everything about networking, distributed systems and operating s
 INSERT INTO groups(owner, name, topicId, groupOrder)
 VALUES ('dokastho', 'Under(graduate)', 2, 1);
 INSERT INTO media(uuid, owner, topicId, groupId, storyOrder)
-VALUES ('example.jpg', 'dokastho', 2, 2, 1);
+VALUES ('example.jpg', 'dokastho', 2, 2, 2);
 INSERT INTO stories(text, owner, topicId, groupId, storyOrder)
-VALUES ('foo bar baz', 'dokastho', 2, 2, 2);
+VALUES ('foo bar baz', 'dokastho', 2, 2, 1);
 
 INSERT INTO groups(owner, name, topicId, groupOrder)
 VALUES ('dokastho', 'Placeholder Education', 2, 2);
