@@ -14,7 +14,7 @@ def get_image(filename):
     )
     
     
-@homepage.app.route("/api/v1/media/update/<mediaId>/")
+@homepage.app.route("/api/v1/media/update/<mediaId>/", methods=["POST"])
 def update_media(mediaId):
     connection = get_db()
 
@@ -50,8 +50,8 @@ def update_media(mediaId):
     return flask.redirect('/admin/')
 
 
-@homepage.app.route("/api/v1/media/upload/")
-def upload_image(filename):
+@homepage.app.route("/api/v1/media/upload/", methods=["POST"])
+def upload_image():
     logname = get_logname()
     if logname is None:
         flask.abort(403)
@@ -61,12 +61,12 @@ def upload_image(filename):
         flask.abort(400)
         
     body = flask.request.form
-    for arg in ['topicId', 'groupId', 'topicOrder']:
+    for arg in ['topicId', 'groupId', 'storyOrder']:
         if arg not in body:
             flask.abort(403)
 
     # save image
-    filename = homepage.model.get_uuid(fileobj.filename)
+    filename = homepage.common.model.get_uuid(fileobj.filename)
     path = homepage.app.config["UPLOAD_FOLDER"] / filename
     fileobj.save(path)
 
@@ -74,18 +74,18 @@ def upload_image(filename):
 
     # insert new posts entry
     cur = connection.execute(
-        "INSERT INTO media (uuid, owner, topicId, groupId, topicOrder)"
-        "VALUES (?, ?, ?, ?, ?)"
+        "INSERT INTO media (uuid, owner, topicId, groupId, storyOrder)"
+        "VALUES (?, ?, ?, ?, ?)",
         (
             filename,
             logname,
             body['topicId'],
             body['groupId'],
-            body['topicOrder'],
+            body['storyOrder'],
         ),
     )
     cur.fetchone()
-    return flask.Response(status=204)
+    return flask.redirect('/admin/')
 
 
 @homepage.app.route("/api/v1/media/delete/<mediaId>/")
@@ -94,24 +94,23 @@ def delete_image(mediaId):
     if logname is None:
         flask.abort(403)
     
-    body = flask.request.form
     filename = flask.request.args.get("filename")
     if filename is None:
         flask.abort(400)
 
     # delete image
-    path = homepage.app.config["UPLOAD_FOLDER"] / body['filename']
+    path = homepage.app.config["UPLOAD_FOLDER"] / filename
     os.remove(path)
 
     connection = get_db()
 
     # insert new posts entry
     cur = connection.execute(
-        "DELETE FROM media WHERE logname = ? AND mediaId = ?",
+        "DELETE FROM media WHERE owner = ? AND mediaId = ?",
         (
-            body['mediaId'],
             logname,
+            mediaId,
         ),
     )
     cur.fetchone()
-    return flask.Response(status=204)
+    return flask.redirect('/admin/')

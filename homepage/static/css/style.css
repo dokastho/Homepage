@@ -101,6 +101,7 @@ a {
     /* transition: all 0.2s; */
     background-color: var(--alt);
     height: 73vh;
+    overflow: hidden;
 }
 
 .topic {}
