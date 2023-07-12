@@ -6,13 +6,16 @@ class Scroller extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      lastFired: 0,
       scrollSum: 0,
+      coolDown: 250,
       thresh: 1000,
     };
   }
 
   componentDidMount() {
     window.addEventListener("wheel", this.handleScroll);
+    this.setState({ lastFired: Date.now() });
   }
 
   componentWillUnmount() {
@@ -20,6 +23,11 @@ class Scroller extends React.Component {
   }
 
   handleScroll = (event) => {
+    const timestamp = Date.now();
+    const { lastFired, coolDown } = this.state;
+    if (timestamp - lastFired < coolDown) {
+      return;
+    }
     const { scrollSum, thresh } = this.state;
     const { onScroll } = this.props;
     const currentScrollPosition = event.wheelDeltaY;
@@ -34,6 +42,7 @@ class Scroller extends React.Component {
         onScroll("down");
       }
       this.setState({
+        lastFired: timestamp,
         scrollSum: 0,
       });
     } else {
