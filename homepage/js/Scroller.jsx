@@ -21,7 +21,7 @@ class Scroller extends React.Component {
 
   handleScroll = (event) => {
     const { scrollSum, thresh } = this.state;
-    const { onScroll, pageNum } = this.props;
+    const { onScroll } = this.props;
     const currentScrollPosition = event.wheelDeltaY;
 
     const updatedScrollSum = scrollSum + currentScrollPosition;
@@ -29,21 +29,13 @@ class Scroller extends React.Component {
 
     if (delta > thresh) {
       if (0 < updatedScrollSum) {
-        const newPageNum = pageNum - 1;
-        if (onScroll(newPageNum)) {
-          this.setState({
-            scrollSum: 0,
-          });
-        }
+        onScroll("up");
       } else if (updatedScrollSum < 0) {
-        const newPageNum = pageNum + 1;
-        if (onScroll(newPageNum)) {
-          this.setState({
-            scrollSum: 0,
-          });
-        }
+        onScroll("down");
       }
-
+      this.setState({
+        scrollSum: 0,
+      });
     } else {
       this.setState({
         scrollSum: updatedScrollSum,
@@ -55,7 +47,7 @@ class Scroller extends React.Component {
     const { scrollSum, thresh } = this.state;
     const frac = 100 * scrollSum / thresh;
     return (
-      <div></div>
+      <div>{`${frac}%`}</div>
     );
   }
 }
