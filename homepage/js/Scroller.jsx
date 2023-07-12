@@ -6,44 +6,44 @@ class Scroller extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastFired: 0,
       scrollSum: 0,
-      coolDown: 1000,
-      thresh: 200,
+      thresh: 1000,
     };
-    this.handleScroll = this.handleScroll.bind(this);
-
-    window.addEventListener("wheel", (event) => { this.handleScroll(event) })
-    window.addEventListener("touchmove", (event) => { this.handleScroll(event) })
   }
 
-  handleScroll(event) {
-    const timestamp = event.timeStamp;
-    const { lastFired, coolDown } = this.state;
-    if (timestamp - lastFired < coolDown) {
-      return;
-    }
-    event.preventDefault();
-    event.stopPropagation();
+  componentDidMount() {
+    window.addEventListener("wheel", this.handleScroll);
+  }
 
+  componentWillUnmount() {
+    window.removeEventListener("wheel", this.handleScroll);
+  }
+
+  handleScroll = (event) => {
     const { scrollSum, thresh } = this.state;
+    const { onScroll, pageNum } = this.props;
     const currentScrollPosition = event.wheelDeltaY;
-    const { onScroll } = this.props;
 
     const updatedScrollSum = scrollSum + currentScrollPosition;
     const delta = Math.abs(updatedScrollSum)
 
     if (delta > thresh) {
       if (0 < updatedScrollSum) {
-        onScroll("up");
+        const newPageNum = pageNum - 1;
+        if (onScroll(newPageNum)) {
+          this.setState({
+            scrollSum: 0,
+          });
+        }
       } else if (updatedScrollSum < 0) {
-        onScroll("down");
+        const newPageNum = pageNum + 1;
+        if (onScroll(newPageNum)) {
+          this.setState({
+            scrollSum: 0,
+          });
+        }
       }
 
-      this.setState({
-        lastFired: timestamp,
-        scrollSum: 0,
-      });
     } else {
       this.setState({
         scrollSum: updatedScrollSum,
@@ -52,11 +52,10 @@ class Scroller extends React.Component {
   }
 
   render() {
-    const { scrollSum } = this.state;
-    const c = '.';
-    const pbstr = c.repeat(Math.abs(scrollSum / 4));
+    const { scrollSum, thresh } = this.state;
+    const frac = 100 * scrollSum / thresh;
     return (
-      <div>{pbstr}</div>
+      <div></div>
     );
   }
 }
@@ -66,6 +65,7 @@ class Scroller extends React.Component {
 Scroller.propTypes = {
   // prop types go here
   // onScroll
+  pageNum: PropTypes.number.isRequired
 };
 
 export default Scroller

@@ -10,7 +10,8 @@ class Topic extends React.Component {
     this.state = {
       name: "",
       groups: {},
-      focusedGroupId: 0
+      focusedGroupId: 0,
+      focusedGroupIdx: 0,
     }
     this.groupScroll = this.groupScroll.bind(this);
   }
@@ -24,23 +25,15 @@ class Topic extends React.Component {
     this.setState({ name, groups, focusedGroupId: orderedGroupKeys[0].id });
   }
 
-  groupScroll(direction) {
-    const { focusedGroupId, groups } = this.state;
+  groupScroll(pageNum) {
+    const { groups } = this.state;
     const groupsKeys = Object.keys(groups);
-    const focusedGroupIdx = groupsKeys.indexOf(focusedGroupId);
-    if (direction === "up") {
-      if (focusedGroupIdx === 0) {
-        return;
-      }
-      const newFocusedGroupId = groupsKeys[focusedGroupIdx - 1]
-      this.setState({ focusedGroupId: newFocusedGroupId });
-    } else if (direction === "down") {
-      if (focusedGroupIdx === groupsKeys.length - 1) {
-        return;
-      }
-      const newFocusedGroupId = groupsKeys[focusedGroupIdx + 1]
-      this.setState({ focusedGroupId: newFocusedGroupId });
+    if (pageNum < 0 || pageNum === groupsKeys.length) {
+      return false;
     }
+    const newFocusedGroupId = groupsKeys[pageNum]
+    this.setState({ focusedGroupId: newFocusedGroupId, focusedGroupIdx: pageNum });
+    return true;
   }
 
   render() {
@@ -49,7 +42,7 @@ class Topic extends React.Component {
       content,
     } = this.props;
 
-    const { name, groups, focusedGroupId } = this.state;
+    const { groups, focusedGroupId, focusedGroupIdx } = this.state;
     const focusedGroup = groups[focusedGroupId];
 
     // apply styles
@@ -62,7 +55,7 @@ class Topic extends React.Component {
 
     return (
       <div className='topic' key={`${topicIdx}-${focusedGroupId}`}>
-        <Scroller onScroll={this.groupScroll} />
+        <Scroller pageNum={focusedGroupIdx} onScroll={this.groupScroll} />
         {
           focusedGroup ? <Group content={focusedGroup} /> : null
         }
