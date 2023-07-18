@@ -1,4 +1,4 @@
-# TODO
+# TODO (in order)
 
 - [ ] Save copy of changes to data.sql
 - [ ] Integrate into d3b
