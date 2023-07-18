@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Lottie from 'react-lottie-player';
 import animationData from '../lotties/arrow-down.json';
-import propTypes from 'prop-types';
 
 const lottieLen = 28;
 
@@ -13,8 +12,8 @@ class Scroller extends React.Component {
     this.state = {
       lastFired: 0,
       scrollSum: 0,
-      coolDown: 250,
-      thresh: 1000,
+      coolDown: 500,
+      thresh: 2000,
     };
     this.undoScroll = this.undoScroll.bind(this);
   }
@@ -100,7 +99,6 @@ class Scroller extends React.Component {
 Scroller.propTypes = {
   // prop types go here
   // onScroll
-  pageNum: PropTypes.number.isRequired,
   isTop: PropTypes.bool.isRequired,
   isBottom: PropTypes.bool.isRequired,
 };

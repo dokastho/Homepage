@@ -50,8 +50,9 @@ a {
 
 .scroller-svg-div {
     left: 50%;
+    transform: translateX(-50%);
     bottom: 10%;
-    position: fixed;
+    position: absolute;
 }
 
 .scroller-svg {
