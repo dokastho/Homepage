@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Lottie from 'react-lottie-player';
 import animationData from '../lotties/arrow-down.json';
+import propTypes from 'prop-types';
 
 const lottieLen = 28;
 
@@ -28,14 +29,23 @@ class Scroller extends React.Component {
   }
 
   handleScroll = (event) => {
+    // ignore event if it's happening too soon
     const timestamp = Date.now();
     const { lastFired, coolDown } = this.state;
     if (timestamp - lastFired < coolDown) {
       return;
     }
     const { scrollSum, thresh } = this.state;
-    const { onScroll } = this.props;
+    const { onScroll, isTop, isBottom } = this.props;
     const currentScrollPosition = event.wheelDeltaY;
+
+    // ignore event if moving past boundaries
+    const isUp = currentScrollPosition > 0;
+    if (isUp && isTop) {
+      return;
+    } else if (!isUp && isBottom) {
+      return;
+    }
 
     const updatedScrollSum = scrollSum + currentScrollPosition;
     const delta = Math.abs(updatedScrollSum)
@@ -71,11 +81,16 @@ class Scroller extends React.Component {
     const isUp = scrollSum < 0;
 
     return (
-      <Lottie
-        goTo={frac}
-        animationData={animationData}
-        style={{ width: 150, height: 150, transform: `rotate(${isUp ? 0 : 180}deg)` }}
-      />
+      <div className='scroller-svg-div'>
+        {scrollSum === 0 ? null : (
+          <Lottie
+            className='scroller-svg'
+            goTo={frac}
+            animationData={animationData}
+            style={{ transform: `rotate(${isUp ? 0 : 180}deg)` }}
+          />
+        )}
+      </div>
     );
   }
 }
@@ -85,7 +100,9 @@ class Scroller extends React.Component {
 Scroller.propTypes = {
   // prop types go here
   // onScroll
-  pageNum: PropTypes.number.isRequired
+  pageNum: PropTypes.number.isRequired,
+  isTop: PropTypes.bool.isRequired,
+  isBottom: PropTypes.bool.isRequired,
 };
 
 export default Scroller

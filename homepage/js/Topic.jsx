@@ -60,9 +60,12 @@ class Topic extends React.Component {
       document.documentElement.style.setProperty(`--${v}`, pstyles[v]);
     })
 
+    const groupsKeys = Object.keys(groups);
+    const focusedGroupIdx = groupsKeys.indexOf(focusedGroupId);
+
     return (
       <div className='topic' key={`${topicIdx}-${focusedGroupId}`}>
-        <Scroller onScroll={this.groupScroll} />
+        <Scroller onScroll={this.groupScroll} isTop={focusedGroupIdx === 0} isBottom={focusedGroupIdx === groupsKeys.length - 1} />
         {
           focusedGroup ? <Group content={focusedGroup} /> : null
         }

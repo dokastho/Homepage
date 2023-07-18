@@ -48,6 +48,17 @@ a {
     color: var(--text);
 }
 
+.scroller-svg-div {
+    left: 50%;
+    bottom: 10%;
+    position: fixed;
+}
+
+.scroller-svg {
+    width: 12vh;
+    height: 12vh;
+}
+
 .svg-link {
     color: var(--text);
     text-decoration: none;
