@@ -15,6 +15,7 @@ class Scroller extends React.Component {
       coolDown: 250,
       thresh: 1000,
     };
+    this.undoScroll = this.undoScroll.bind(this);
   }
 
   componentDidMount() {
@@ -53,7 +54,15 @@ class Scroller extends React.Component {
       this.setState({
         scrollSum: updatedScrollSum,
       })
+      this.undoScroll(currentScrollPosition);
     }
+  }
+
+  undoScroll(ss) {
+    // undo after 1s
+    setTimeout(() => {
+      this.setState((prevState) => ({ scrollSum: prevState.scrollSum - ss }))
+    }, 1000)
   }
 
   render() {
