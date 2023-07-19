@@ -32,7 +32,7 @@ def update_media(mediaId):
 
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
-        "query": "UPDATE media SET storyOrder = ?WHERE owner = ? AND mediaId = ?",
+        "query": "UPDATE media SET storyOrder = ? WHERE owner = ? AND mediaId = ?",
         "args": [body["storyOrder"], logname, mediaId],
     }
     req_hdrs = {"content_type": "application/json"}

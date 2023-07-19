@@ -29,7 +29,7 @@ def update_group(groupId: int):
 
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
-        "query": "UPDATE groups SET groupOrder = ?,name = ? WHERE owner = ? AND groupId = ?",
+        "query": "UPDATE groups SET groupOrder = ?, name = ? WHERE owner = ? AND groupId = ?",
         "args": [body["groupOrder"], body["name"], logname, groupId],
     }
     req_hdrs = {"content_type": "application/json"}
