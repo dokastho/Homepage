@@ -7,6 +7,9 @@ import pathlib
 import homepage
 import flask
 
+import pathlib
+import shutil
+
 
 def dict_factory(cursor, row):
     """Convert database row objects to a dictionary keyed on column name.
@@ -25,6 +28,8 @@ def get_db():
     """
     if 'sqlite_db' not in flask.g:
         db_filename = homepage.app.config['DATABASE_FILENAME']
+        backup = pathlib.Path(homepage.app.config['SITE_ROOT'] / "homepage" / "backup" / "backup.sqlite3")
+        shutil.copyfile(db_filename, backup)
         flask.g.sqlite_db = sqlite3.connect(str(db_filename))
         flask.g.sqlite_db.row_factory = dict_factory
         # Foreign keys have to be enabled per-connection.  This is an sqlite3

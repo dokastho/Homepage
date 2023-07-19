@@ -12,7 +12,7 @@ class Scroller extends React.Component {
     this.state = {
       lastFired: 0,
       scrollSum: 0,
-      coolDown: 500,
+      coolDown: 1000,
       thresh: 2000,
     };
     this.undoScroll = this.undoScroll.bind(this);
