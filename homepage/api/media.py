@@ -1,6 +1,5 @@
 import flask
 import homepage
-import pathlib
 import os
 from homepage.common.model import get_logname
 from homepage.common.utils import get_client

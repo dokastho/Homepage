@@ -1,5 +1,4 @@
 import flask
-from homepage.common.model import get_db, get_logname
 from homepage.config import MY_LOGNAME
 import homepage
 from random import randint
@@ -20,7 +19,7 @@ def get_client(host_id: int = 0) -> d3b_client:
 
 def get_all():
     content = dict()
-    content["logname"]: get_logname()
+    content["logname"]: homepage.common.model.get_logname()
 
     owner: str = MY_LOGNAME  # remove me
     content["logname"] = owner  # remove me
@@ -93,7 +92,7 @@ def get_all():
 
 
 def get_topic(topicId):
-    logname = get_logname()
+    logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
 
@@ -109,7 +108,7 @@ def get_topic(topicId):
 
 
 def get_group(groupId):
-    logname = get_logname()
+    logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
         
@@ -125,7 +124,7 @@ def get_group(groupId):
 
 
 def get_story(storyId):
-    logname = get_logname()
+    logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
     
@@ -141,7 +140,7 @@ def get_story(storyId):
 
 
 def get_media(mediaId):
-    logname = get_logname()
+    logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
     

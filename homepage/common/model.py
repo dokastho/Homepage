@@ -1,11 +1,10 @@
 """Site model (database) API."""
-from datetime import datetime
 import hashlib
 import uuid
 import pathlib
 import homepage
 import flask
-from utils import get_client
+from homepage.common.utils import get_client
 
 
 def dict_factory(cursor, row):
