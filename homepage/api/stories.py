@@ -57,7 +57,7 @@ def upload_story():
             logname,
             body["topicId"],
             body["groupId"],
-            body["storyOrder"],
+            body["storyOrder"]
         ],
     }
     req_hdrs = {"content_type": "application/json"}
