@@ -1,5 +1,6 @@
 import flask
 import homepage
+import pathlib
 import os
 from homepage.common.model import get_logname
 from homepage.common.utils import get_client
@@ -9,10 +10,20 @@ from homepage.common.utils import get_client
 def get_image(filename):
     # if 'logname' not in flask.session:
     #     return flask.abort(403)
+    
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "",
+        "args": [],
+        "media_op": "get",
+        "file_id": filename
+    }
+    req_hdrs = {
+        'content_type': 'application/json'
+    }
+    data = get_client().file_get(req_data, req_hdrs)
 
-    return flask.send_from_directory(
-        homepage.app.config["UPLOAD_FOLDER"], filename, as_attachment=True
-    )
+    return flask.Response(data)
 
 
 @homepage.app.route("/api/v1/media/update/<mediaId>/", methods=["POST"])
@@ -60,6 +71,8 @@ def upload_image():
     filename = homepage.common.model.get_uuid(fileobj.filename)
     path = homepage.app.config["UPLOAD_FOLDER"] / filename
     fileobj.save(path)
+    
+    fileobj = open(path, "rb")
 
     # insert new posts entry
     req_data = {
@@ -72,9 +85,11 @@ def upload_image():
             body["groupId"],
             body["storyOrder"]
         ],
+        "media_op": "upload",
+        "file_id": filename
     }
-    req_hdrs = {"content_type": "application/json"}
-    get_client().post(req_data, req_hdrs)
+    get_client().file_post(req_data, fileobj)
+    os.remove(path)
 
     return flask.redirect("/admin/")
 
@@ -89,15 +104,13 @@ def delete_image(mediaId):
     if filename is None:
         flask.abort(400)
 
-    # delete image
-    path = homepage.app.config["UPLOAD_FOLDER"] / filename
-    os.remove(path)
-
     # insert new posts entry
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
         "query": "DELETE FROM media WHERE owner = ? AND mediaId = ?",
         "args": [logname, mediaId],
+        "media_op": "delete",
+        "file_id": filename
     }
     req_hdrs = {"content_type": "application/json"}
     get_client().post(req_data, req_hdrs)
