@@ -12,3 +12,4 @@ SITE_ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATABASE_FILENAME = SITE_ROOT/'var'/'homepage.sqlite3'
 MY_LOGNAME = "dokastho"
 UPLOAD_FOLDER = SITE_ROOT/'homepage'/'static'/'img'
+NDBS = 3
