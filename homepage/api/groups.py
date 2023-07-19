@@ -1,7 +1,7 @@
 import flask
 import homepage
-from homepage.common.model import get_db, get_logname
-from homepage.common.utils import get_group
+from homepage.common.model import get_logname
+from homepage.common.utils import get_group, get_client
 
 
 @homepage.app.route("/api/v1/groups/get/<groupId>/", methods=["GET"])
@@ -14,40 +14,28 @@ def fetch_group(groupId):
 def update_group(groupId: int):
     """Update a topic."""
 
-    connection = get_db()
-
     # get values from body
     body = flask.request.form
     # body extists?
     if body is None:
         flask.abort(400)
     # fields in body?
-    if (
-        "groupOrder" not in body
-    ):
+    if "groupOrder" not in body:
         flask.abort(400)
     # get user
     logname = get_logname()
     if logname is None:
         flask.abort(403)
 
-    cur = connection.execute(
-        "UPDATE groups "
-        "SET groupOrder = ?,"
-        "name = ? "
-        "WHERE owner = ? "
-        "AND groupId = ?",
-        (
-            body["groupOrder"],
-            body["name"],
-            logname,
-            groupId,
-        ),
-    )
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "UPDATE groups SET groupOrder = ?,name = ? WHERE owner = ? AND groupId = ?",
+        "args": [body["groupOrder"], body["name"], logname, groupId],
+    }
+    req_hdrs = {"content_type": "application/json"}
+    get_client().post(req_data, req_hdrs)
 
-    cur.fetchone()
-
-    return flask.redirect('/admin/')
+    return flask.redirect("/admin/")
 
 
 @homepage.app.route("/api/v1/groups/upload/", methods=["POST"])
@@ -61,19 +49,15 @@ def upload_group():
         if arg not in body:
             flask.abort(400)
 
-    connection = get_db()
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "INSERT INTO groups (owner, name, topicId, groupOrder) VALUES (?, ?, ?)",
+        "args": [logname, body["name"], body["topicId"], body["groupOrder"]],
+    }
+    req_hdrs = {"content_type": "application/json"}
+    get_client().post(req_data, req_hdrs)
 
-    cur = connection.execute(
-        "INSERT INTO groups (owner, name, topicId, groupOrder)" "VALUES (?, ?, ?, ?)",
-        (
-            logname,
-            body["name"],
-            body["topicId"],
-            body["groupOrder"],
-        ),
-    )
-    cur.fetchone()
-    return flask.redirect('/admin/')
+    return flask.redirect("/admin/")
 
 
 @homepage.app.route("/api/v1/groups/delete/<groupId>/")
@@ -82,14 +66,12 @@ def delete_group(groupId):
     if logname is None:
         flask.abort(403)
 
-    connection = get_db()
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "DELETE FROM groups WHERE owner = ? AND groupId = ?",
+        "args": [logname, groupId],
+    }
+    req_hdrs = {"content_type": "application/json"}
+    get_client().post(req_data, req_hdrs)
 
-    cur = connection.execute(
-        "DELETE FROM groups WHERE owner = ? AND groupId = ?",
-        (
-            logname,
-            groupId,
-        ),
-    )
-    cur.fetchone()
-    return flask.redirect('/admin/')
+    return flask.redirect("/admin/")
