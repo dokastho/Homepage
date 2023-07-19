@@ -51,7 +51,7 @@ def upload_group():
 
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
-        "query": "INSERT INTO groups (owner, name, topicId, groupOrder) VALUES (?, ?, ?)",
+        "query": "INSERT INTO groups (owner, name, topicId, groupOrder) VALUES (?, ?, ?, ?)",
         "args": [logname, body["name"], body["topicId"], body["groupOrder"]],
     }
     req_hdrs = {"content_type": "application/json"}
