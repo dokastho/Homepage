@@ -64,7 +64,7 @@ def upload_group():
     connection = get_db()
 
     cur = connection.execute(
-        "INSERT INTO groups (owner, name, topicId, groupOrder)" "VALUES (?, ?, ?)",
+        "INSERT INTO groups (owner, name, topicId, groupOrder)" "VALUES (?, ?, ?, ?)",
         (
             logname,
             body["name"],
