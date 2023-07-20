@@ -28,9 +28,10 @@ class Group extends React.Component {
 
   render() {
     const { name, stories, groupOrder, fadeIn } = this.state;
+    const { transitionDirection } = this.props;
     return (
       <div className='group' key={groupOrder}>
-        <div className={fadeIn ? 'fade-in' : 'fade-out'}>
+        <div className={fadeIn ? 'fade-in' : `fade-out slide-${transitionDirection}`}>
           <h1>{name}</h1>
           {
             stories.map((story, i) => {
@@ -45,7 +46,8 @@ class Group extends React.Component {
 
 Group.propTypes = {
   // prop types go here
-  content: PropTypes.instanceOf(Object).isRequired
+  content: PropTypes.instanceOf(Object).isRequired,
+  transitionDirection: PropTypes.string.isRequired,
 };
 
 Group.defaultProps = {

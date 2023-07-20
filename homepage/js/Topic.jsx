@@ -11,7 +11,8 @@ class Topic extends React.Component {
       name: "",
       groups: {},
       focusedGroupId: 0,
-      msg: ""
+      msg: "",
+      transitionDirection: "none"
     }
     this.groupScroll = this.groupScroll.bind(this);
   }
@@ -39,13 +40,21 @@ class Topic extends React.Component {
         return;
       }
       const newFocusedGroupId = groupsKeys[focusedGroupIdx - 1]
-      this.setState({ focusedGroupId: newFocusedGroupId, msg: "" });
+      this.setState({
+        focusedGroupId: newFocusedGroupId,
+        msg: "",
+        transitionDirection: direction
+      });
     } else if (direction === "down") {
       if (focusedGroupIdx === groupsKeys.length - 1) {
         return;
       }
       const newFocusedGroupId = groupsKeys[focusedGroupIdx + 1]
-      this.setState({ focusedGroupId: newFocusedGroupId, msg: "" });
+      this.setState({
+        focusedGroupId: newFocusedGroupId,
+        msg: "",
+        transitionDirection: direction
+      });
     }
   }
 
@@ -55,7 +64,13 @@ class Topic extends React.Component {
       content,
     } = this.props;
 
-    const { name, groups, focusedGroupId, msg } = this.state;
+    const {
+      name,
+      groups,
+      focusedGroupId,
+      msg,
+      transitionDirection
+    } = this.state;
     const focusedGroup = groups[focusedGroupId];
 
     // apply styles
@@ -71,9 +86,9 @@ class Topic extends React.Component {
 
     return (
       <div className='topic' key={`${topicIdx}-${focusedGroupId}`}>
-        <Scroller onScroll={this.groupScroll} isTop={focusedGroupIdx === 0} isBottom={focusedGroupIdx === groupsKeys.length - 1} msg={msg}  />
+        <Scroller onScroll={this.groupScroll} isTop={focusedGroupIdx === 0} isBottom={focusedGroupIdx === groupsKeys.length - 1} msg={msg} />
         {
-          focusedGroup ? <Group content={focusedGroup} /> : null
+          focusedGroup ? <Group content={focusedGroup} transitionDirection={transitionDirection} /> : null
         }
       </div>
     );

@@ -23,12 +23,23 @@ body {
 
 .fade-in {
     opacity: 1;
-    transition: opacity 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .fade-out {
     opacity: 0;
-    transform: translateY(-4rem);
+}
+
+.slide-down {
+    transform: translateY(1rem);
+}
+
+.slide-up {
+    transform: translateY(-1rem);
+}
+
+.slide-none {
+    transform: translateY(0);
 }
 
 h1 {
