@@ -76,12 +76,13 @@ class Scroller extends React.Component {
 
   render() {
     const { scrollSum, thresh } = this.state;
+    const { msg } = this.props;
     const frac = Math.abs(lottieLen * scrollSum / thresh);
     const isUp = scrollSum < 0;
 
     return (
       <div className='scroller-svg-div'>
-        {scrollSum === 0 ? null : (
+        {scrollSum === 0 ? msg : (
           <Lottie
             className='scroller-svg'
             goTo={frac}
@@ -101,6 +102,7 @@ Scroller.propTypes = {
   // onScroll
   isTop: PropTypes.bool.isRequired,
   isBottom: PropTypes.bool.isRequired,
+  msg: PropTypes.string
 };
 
 export default Scroller

@@ -10,7 +10,8 @@ class Topic extends React.Component {
     this.state = {
       name: "",
       groups: {},
-      focusedGroupId: 0
+      focusedGroupId: 0,
+      msg: ""
     }
     this.groupScroll = this.groupScroll.bind(this);
   }
@@ -21,7 +22,12 @@ class Topic extends React.Component {
       const group = groups[key]
       return ({ id: key, groupOrder: group.groupOrder });
     }).sort((a, b) => a.groupOrder - b.groupOrder);
-    this.setState({ name, groups, focusedGroupId: orderedGroupKeys[0].id });
+    const { topicIdx } = this.props;
+    let msg = "";
+    if (topicIdx === 0) {
+      msg = "Psst! Try scrolling down for more"
+    }
+    this.setState({ name, groups, focusedGroupId: orderedGroupKeys[0].id, msg });
   }
 
   groupScroll(direction) {
@@ -33,13 +39,13 @@ class Topic extends React.Component {
         return;
       }
       const newFocusedGroupId = groupsKeys[focusedGroupIdx - 1]
-      this.setState({ focusedGroupId: newFocusedGroupId });
+      this.setState({ focusedGroupId: newFocusedGroupId, msg: "" });
     } else if (direction === "down") {
       if (focusedGroupIdx === groupsKeys.length - 1) {
         return;
       }
       const newFocusedGroupId = groupsKeys[focusedGroupIdx + 1]
-      this.setState({ focusedGroupId: newFocusedGroupId });
+      this.setState({ focusedGroupId: newFocusedGroupId, msg: "" });
     }
   }
 
@@ -49,7 +55,7 @@ class Topic extends React.Component {
       content,
     } = this.props;
 
-    const { name, groups, focusedGroupId } = this.state;
+    const { name, groups, focusedGroupId, msg } = this.state;
     const focusedGroup = groups[focusedGroupId];
 
     // apply styles
@@ -65,7 +71,7 @@ class Topic extends React.Component {
 
     return (
       <div className='topic' key={`${topicIdx}-${focusedGroupId}`}>
-        <Scroller onScroll={this.groupScroll} isTop={focusedGroupIdx === 0} isBottom={focusedGroupIdx === groupsKeys.length - 1} />
+        <Scroller onScroll={this.groupScroll} isTop={focusedGroupIdx === 0} isBottom={focusedGroupIdx === groupsKeys.length - 1} msg={msg}  />
         {
           focusedGroup ? <Group content={focusedGroup} /> : null
         }
