@@ -63,8 +63,8 @@ class Homepage extends React.Component {
 
     return (
       <div className='site'>
-        <CSSTransition nodeRef={this.myRef} timeout={200} classNames={'fade-in'}>
-          <div ref={this.myRef}>
+        {/* <CSSTransition nodeRef={this.myRef} timeout={200} classNames={'fade-in'}> */}
+          {/* <div ref={this.myRef}> */}
             <div className='static-navigator'>
               <Headbar />
               <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
@@ -75,8 +75,8 @@ class Homepage extends React.Component {
               }
             </div>
             <Footbar />
-          </div>
-        </CSSTransition >
+          {/* </div> */}
+        {/* </CSSTransition > */}
       </div>
     );
   }
