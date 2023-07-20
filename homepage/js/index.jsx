@@ -1,7 +1,8 @@
 import React from 'react'
 import Picker from './Picker';
 import Topic from './Topic';
-import { render } from 'react-dom';
+import { CSSTransition } from 'react-transition-group';
+import { createRoot } from 'react-dom/client';
 import Headbar from './Headbar';
 import Footbar from './Footbar';
 
@@ -19,6 +20,8 @@ class Homepage extends React.Component {
     };
 
     this.setTopicFocus = this.setTopicFocus.bind(this);
+
+    this.myRef = React.createRef();
   }
 
   componentDidMount() {
@@ -60,22 +63,25 @@ class Homepage extends React.Component {
 
     return (
       <div className='site'>
-        <div className='static-navigator'>
-          <Headbar />
-          <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
-        </div>
-        <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
-          {
-            focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
-          }
-        </div>
-        <Footbar />
+        <CSSTransition nodeRef={this.myRef} timeout={200} classNames={'fade-in'}>
+          <div ref={this.myRef}>
+            <div className='static-navigator'>
+              <Headbar />
+              <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
+            </div>
+            <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
+              {
+                focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
+              }
+            </div>
+            <Footbar />
+          </div>
+        </CSSTransition >
       </div>
     );
   }
 }
 
-render(
-  <Homepage />,
-  document.getElementById('reactEntry'),
-);
+const container = document.getElementById('reactEntry');
+const root = createRoot(container);
+root.render(<Homepage />);

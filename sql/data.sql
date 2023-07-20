@@ -6,7 +6,7 @@ VALUES ('dokastho', 'Thomas Dokas', 'dokastho@umich.edu', 'password');
 INSERT INTO topics(name, owner, styles, icon)
 VALUES ('Bio', 'dokastho', '{"primary": "white", "alt": "#1f4954", "trim": "black", "text": "white", "alt-text": "#1f4954"}', 'Bio.svg');
 INSERT INTO topics(name, owner, styles, icon)
-VALUES ('Education', 'dokastho', '{"primary": "#ffcb0b", "alt": "#00326a", "trim": "white", "text": "#ffcb0b", "alt-text": "#00326a"}', 'Education.svg');
+VALUES ('Education', 'dokastho', '{"primary": "#ffcb0b", "alt": "#00274c", "trim": "white", "text": "#ffcb0b", "alt-text": "#00274c"}', 'Education.svg');
 INSERT INTO topics(name, owner, styles, icon)
 VALUES ('Projects', 'dokastho', '{"primary": "#ffcb0b", "alt": "#CF2F44", "trim": "white", "text": "powderblue", "alt-text": "#CF2F44"}', 'Projects.svg');
 INSERT INTO topics(name, owner, styles, icon)
