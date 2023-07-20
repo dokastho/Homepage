@@ -140,18 +140,25 @@ a {
 
 .group {
     padding: 2rem;
-    display: inline-block;
+}
+
+.stories {
+    display: flex;
+    justify-content: space-between;
 }
 
 .image {
     float: right;
-    width: 40%;
+    max-width: 50%;
+    max-height: 60vh;
+    height: 100%;
     transform: translateY(-4rem);
 }
 
 .story {
     float: left;
-    width: 50%;
+    height: 100%;
+    padding: 1rem;
 }
 
 .footbar {

@@ -30,9 +30,9 @@ class Group extends React.Component {
     const { name, stories, groupOrder, fadeIn } = this.state;
     const { transitionDirection } = this.props;
     return (
-      <div className='group' key={groupOrder}>
-        <div className={fadeIn ? 'fade-in' : `fade-out slide-${transitionDirection}`}>
-          <h1>{name}</h1>
+      <div className={`group ${fadeIn ? 'fade-in' : `fade-out slide-${transitionDirection}`}`} key={groupOrder}>
+        <h1>{name}</h1>
+        <div className='stories'>
           {
             stories.map((story, i) => {
               return (story.type === "media" ? <Image id={story.uuid} keyNum={i} /> : <Story text={story.text} keyNum={i} />)
