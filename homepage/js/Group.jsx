@@ -12,6 +12,7 @@ class Group extends React.Component {
       name: "",
       stories: [],
       groupOrder: 0,
+      fadeIn: false,
     };
   }
 
@@ -20,18 +21,23 @@ class Group extends React.Component {
     const { name, stories, groupOrder } = content;
     const sortedStories = stories.sort((a, b) => a.storyOrder - b.storyOrder);
     this.setState({ name: name, stories: sortedStories, groupOrder: groupOrder });
+    setTimeout(() => {
+      this.setState({ fadeIn: true });
+    }, 100);
   }
 
   render() {
-    const { name, stories, groupOrder } = this.state;
+    const { name, stories, groupOrder, fadeIn } = this.state;
     return (
       <div className='group' key={groupOrder}>
-        <h1>{name}</h1>
-        {
-          stories.map((story, i) => {
-            return (story.type === "media" ? <Image id={story.uuid} keyNum={i} /> : <Story text={story.text} keyNum={i} />)
-          })
-        }
+        <div className={fadeIn ? 'fade-in' : 'fade-out'}>
+          <h1>{name}</h1>
+          {
+            stories.map((story, i) => {
+              return (story.type === "media" ? <Image id={story.uuid} keyNum={i} /> : <Story text={story.text} keyNum={i} />)
+            })
+          }
+        </div>
       </div>
     );
   }
