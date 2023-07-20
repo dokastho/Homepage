@@ -104,7 +104,7 @@ def get_topic(topicId):
     req_hdrs = {"content_type": "application/json"}
     data = get_client().get(req_data, req_hdrs)
 
-    return data
+    return data[0]
 
 
 def get_group(groupId):
@@ -120,7 +120,7 @@ def get_group(groupId):
     req_hdrs = {"content_type": "application/json"}
     data = get_client().get(req_data, req_hdrs)
 
-    return data
+    return data[0]
 
 
 def get_story(storyId):
@@ -136,7 +136,7 @@ def get_story(storyId):
     req_hdrs = {"content_type": "application/json"}
     data = get_client().get(req_data, req_hdrs)
 
-    return data
+    return data[0]
 
 
 def get_media(mediaId):
@@ -152,4 +152,4 @@ def get_media(mediaId):
     req_hdrs = {"content_type": "application/json"}
     data = get_client().get(req_data, req_hdrs)
 
-    return data
+    return data[0]

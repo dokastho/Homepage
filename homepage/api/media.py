@@ -1,6 +1,7 @@
 import flask
 import homepage
 import os
+import io
 from homepage.common.model import get_logname
 from homepage.common.utils import get_client
 
@@ -22,7 +23,7 @@ def get_image(filename):
     }
     data = get_client().file_get(req_data, req_hdrs)
 
-    return flask.Response(data)
+    return flask.send_file(io.BytesIO(data), download_name=filename)
 
 
 @homepage.app.route("/api/v1/media/update/<mediaId>/", methods=["POST"])
