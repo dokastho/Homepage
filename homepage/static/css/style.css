@@ -166,7 +166,7 @@ a {
 .footbar {
     display: flex;
     padding: 2vh;
-    height: 4vh;
+    height: 3rem;
     justify-content: space-between;
 }
 
