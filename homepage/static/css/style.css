@@ -128,6 +128,7 @@ a {
 
 .small-icon-img {
     width: 2rem;
+    pointer-events: none;
 }
 
 .topic-tray {

@@ -27,7 +27,7 @@ class SmallIconWithText extends React.Component {
         onMouseLeave={this.handleMouseLeave}
         onClick={() => { onClick(args) }}
       >
-        <img src={src} key={keyName} className='small-icon-img' />
+        <object data={src} key={keyName} className='small-icon-img' />
         {
           <div className='small-icon-label'>
             {
