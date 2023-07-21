@@ -4,6 +4,8 @@ import Topic from './Topic';
 import { createRoot } from 'react-dom/client';
 import Headbar from './Headbar';
 import Footbar from './Footbar';
+import { BrowserView, MobileView } from 'react-device-detect';
+import MobilePage from './MobilePage';
 
 class Homepage extends React.Component {
 
@@ -62,16 +64,21 @@ class Homepage extends React.Component {
 
     return (
       <div className='site'>
-        <div className='static-navigator'>
-          <Headbar />
-          <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
-        </div>
-        <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
-          {
-            focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
-          }
-        </div>
-        <Footbar />
+        <BrowserView>
+          <div className='static-navigator'>
+            <Headbar />
+            <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
+          </div>
+          <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
+            {
+              focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
+            }
+          </div>
+          <Footbar />
+        </BrowserView>
+        <MobileView>
+          <MobilePage />
+        </MobileView>
       </div>
     );
   }

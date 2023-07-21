@@ -10,9 +10,10 @@ body {
     font-family: 'Futura', Arial, sans-serif;
     color: var(--text);
     background-color: var(--alt);
-    /* transition: all 0.2s; */
     margin: 1vh;
     padding: 1rem;
+    /* transition: all 0.2s; */
+
     font-size: 2rem;
 }
 
@@ -169,5 +170,16 @@ a {
     justify-content: space-between;
 }
 
+.mobile {
+    text-align: center;
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* mobile layout */
-@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 1200px) {
+    body {
+        overflow: auto;
+    }
+}

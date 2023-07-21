@@ -20,11 +20,13 @@ class Scroller extends React.Component {
 
   componentDidMount() {
     window.addEventListener("wheel", this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
     this.setState({ lastFired: Date.now() });
   }
 
   componentWillUnmount() {
     window.removeEventListener("wheel", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   handleScroll = (event) => {

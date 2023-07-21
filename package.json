@@ -32,6 +32,7 @@
         "pseudo-random": "^0.6.0",
         "react": "^18.2.0",
         "react-bulma-components": "^4.1.0",
+        "react-device-detect": "^2.2.3",
         "react-dom": ">=17.0.2",
         "react-ellipsis-text": "^1.2.1",
         "react-infinite-scroll-component": ">=6.1.0",
