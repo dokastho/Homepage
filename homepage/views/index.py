@@ -6,6 +6,9 @@ from homepage.common.model import check_session, get_logname
 @homepage.app.route("/")
 def show_index():
     """Render homepage for the site."""
+    logname = get_logname()
+    if logname is None:
+        logname = "log in"
 
     return flask.render_template("index.html")
     # return flask.render_template("wip.html")
