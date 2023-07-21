@@ -1,8 +1,8 @@
 import homepage
 import flask
 import json
-from homepage.common.model import get_db, get_logname
-from homepage.common.utils import get_topic
+from homepage.common.model import get_logname
+from homepage.common.utils import get_topic, get_client
 
 
 @homepage.app.route("/api/v1/topics/get/<topicId>/", methods=["GET"])
@@ -14,8 +14,6 @@ def fetch_topic(topicId):
 @homepage.app.route("/api/v1/topics/update/<topicId>/", methods=["POST"])
 def update_topic(topicId: int):
     """Update a topic."""
-
-    connection = get_db()
 
     # get values from body
     body = flask.request.form
@@ -30,23 +28,13 @@ def update_topic(topicId: int):
     if logname is None:
         flask.abort(403)
 
-    cur = connection.execute(
-        "UPDATE topics "
-        "SET name = ?,"
-        "icon = ?,"
-        "styles = ?"
-        "WHERE owner = ? "
-        "AND topicId = ?",
-        (
-            body["name"],
-            body["icon"],
-            body["styles"],
-            logname,
-            topicId,
-        ),
-    )
-
-    cur.fetchone()
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "UPDATE topics SET name = ?, icon = ?, styles = ? WHERE owner = ? AND topicId = ?",
+        "args": [body["name"], body["icon"], body["styles"], logname, topicId],
+    }
+    req_hdrs = {"content_type": "application/json"}
+    get_client().post(req_data, req_hdrs)
 
     return flask.redirect("/admin/")
 
@@ -54,7 +42,6 @@ def update_topic(topicId: int):
 @homepage.app.route("/api/v1/topics/upload/", methods=["POST"])
 def create_topic():
     """Create a topic."""
-    connection = get_db()
 
     # get values from body
     body = flask.request.form
@@ -70,17 +57,13 @@ def create_topic():
         flask.abort(403)
 
     # create topic in db
-    cur = connection.execute(
-        "INSERT INTO topics (name, owner, styles, icon) VALUES (?, ?, ?, ?)",
-        (
-            body["name"],
-            logname,
-            body["styles"],
-            body["icon"],
-        ),
-    )
-
-    cur.fetchone()
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "INSERT INTO topics (name, owner, styles, icon) VALUES (?, ?, ?, ?)",
+        "args": [body["name"], logname, body["styles"], body["icon"]],
+    }
+    req_hdrs = {"content_type": "application/json"}
+    get_client().post(req_data, req_hdrs)
 
     return flask.redirect("/admin/")
 
@@ -89,21 +72,17 @@ def create_topic():
 def delete_topic(topicId: int):
     """Delete a topic."""
 
-    connection = get_db()
-
     logname = get_logname()
     if logname is None:
         flask.abort(403)
 
     # delete topic from db
-    cur = connection.execute(
-        "DELETE FROM topics WHERE topicId == ? AND owner == ?",
-        (
-            topicId,
-            logname,
-        ),
-    )
-
-    cur.fetchone()
+    req_data = {
+        "table": homepage.app.config["DATABASE_FILENAME"],
+        "query": "DELETE FROM topics WHERE topicId == ? AND owner == ?",
+        "args": [topicId, logname],
+    }
+    req_hdrs = {"content_type": "application/json"}
+    get_client().post(req_data, req_hdrs)
 
     return flask.redirect("/admin/")
