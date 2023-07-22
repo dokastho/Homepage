@@ -13,6 +13,9 @@ body {
     color: var(--text);
     background-color: var(--alt);
     font-size: 2rem;
+}
+
+#body {
     overflow: hidden;
 }
 
