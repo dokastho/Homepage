@@ -9,34 +9,22 @@ class SplashPage extends React.Component {
     super(props);
     this.state = {
       doPlay: false,
-      fadeIn: false,
     }
 
     this.playAnimation = this.playAnimation.bind(this);
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ fadeIn: true });
-    }, 300)
-  }
-
   playAnimation() {
-    this.setState({ doPlay: true });
     const { loadSite } = this.props;
-    setTimeout(() => {
-      this.setState({ fadeIn: false });
-    }, 400)
-    setTimeout(() => {
-      loadSite();
-    }, 600)
+    this.setState({ doPlay: true });
+    loadSite();
   }
 
   render() {
-    const { doPlay, fadeIn } = this.state;
+    const { doPlay } = this.state;
 
     return (
-      <div className={`mobile fade-${fadeIn ? 'in' : 'out'}`}>
+      <div className='mobile'>
         <h1>Hey There 👋</h1>
         <h5>Thanks for visiting.</h5>
         <br />

@@ -29,6 +29,9 @@ class Homepage extends React.Component {
 
   componentDidMount() {
     // fetch all the thumbnails, set state
+    setTimeout(() => {
+      this.setState({ fadeIn: true });
+    }, 300)
     fetch("/api/v1/home/", { credentials: 'same-origin' })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -47,7 +50,18 @@ class Homepage extends React.Component {
   }
 
   loadSite() {
-    this.setState({ launched: true });
+    // fade out after 400ms
+    setTimeout(() => {
+      this.setState({ fadeIn: false });
+    }, 400);
+    // change content 200ms later
+    setTimeout(() => {
+      this.setState({ launched: true });
+    }, 600);
+    // fade in 200ms after that
+    setTimeout(() => {
+      this.setState({ fadeIn: true });
+    }, 800);
   }
 
   setTopicFocus(topicIdx) {
@@ -71,7 +85,7 @@ class Homepage extends React.Component {
     const pickerTopics = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name, icon: topics[topicId].icon }); });
 
     return (
-      <div className='site'>
+      <div className={`site fade-${fadeIn ? 'in' : 'out'}`}>
         <BrowserView>
           {
             launched ? (
