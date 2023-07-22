@@ -85,7 +85,7 @@ class Homepage extends React.Component {
     const pickerTopics = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name, icon: topics[topicId].icon }); });
 
     return (
-      <div className={`site fade-${fadeIn ? 'in' : 'out'}`}>
+      <div className={`site fade-${fadeIn ? 'in' : 'out2'}`}>
         <BrowserView>
           {
             launched ? (

@@ -27,6 +27,10 @@ body {
 
 .fade-out {
     opacity: 0;
+}
+
+.fade-out2 {
+    opacity: 0;
     transition: all 0.2s ease-in-out;
 }
 
