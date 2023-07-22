@@ -7,17 +7,18 @@
 }
 
 body {
+    margin: 0px;
+    padding: 0px;
     font-family: 'Futura', Arial, sans-serif;
     color: var(--text);
     background-color: var(--alt);
-    margin: 1vh;
-    padding: 1rem;
     font-size: 2rem;
+    overflow: hidden;
 }
 
-#body {
-    overflow: hidden;
-    padding: 0;
+.site {
+    margin: 1rem;
+    padding: 1rem;
 }
 
 .fade-in {
@@ -31,7 +32,7 @@ body {
 
 .fade-out2 {
     opacity: 0;
-    /* transition: all 0.2s ease-in-out; */
+    transition: all 0.2s ease-in-out;
 }
 
 .slide-down {
@@ -93,7 +94,7 @@ a {
 .static-navigator {
     display: grid;
     place-items: center;
-    height: 17vh;
+    max-height: 17vh;
 }
 
 .headbar {
@@ -154,7 +155,7 @@ a {
 
 .image {
     float: right;
-    max-width: 50%;
+    max-width: 40%;
     max-height: 55vh;
     height: 100%;
     transform: translateY(-4rem);
@@ -167,10 +168,14 @@ a {
 }
 
 .footbar {
+    position: absolute;
+    width: 100%;
     display: flex;
-    padding: 2vh;
+    bottom: 0px;
+    padding: 0px;
+    margin: 0px;
     height: 3rem;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .mobile {

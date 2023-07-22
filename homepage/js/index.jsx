@@ -85,31 +85,37 @@ class Homepage extends React.Component {
     const pickerTopics = keys.map((topicId, i) => { return ({ idx: i, name: topics[topicId].name, icon: topics[topicId].icon }); });
 
     return (
-      <div className={`site fade-${fadeIn ? 'in' : 'out2'}`}>
+      <div className={`fade-${fadeIn ? 'in' : 'out2'}`}>
         <BrowserView>
           {
             launched ? (
               <>
-                <div className='static-navigator'>
-                  <Headbar />
-                  <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
-                </div>
-                <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
-                  {
-                    focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
-                  }
+                <div className='site'>
+                  <div className='static-navigator'>
+                    <Headbar />
+                    <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
+                  </div>
+                  <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
+                    {
+                      focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
+                    }
+                  </div>
                 </div>
                 <Footbar />
               </>
             ) : (
-              <SplashPage loadSite={this.loadSite} />
+              <div className='site'>
+                <SplashPage loadSite={this.loadSite} />
+              </div>
             )
           }
         </BrowserView>
         <MobileView>
-          <MobilePage />
+          <div className='site'>
+            <MobilePage />
+          </div>
         </MobileView>
-      </div>
+      </div >
     );
   }
 }

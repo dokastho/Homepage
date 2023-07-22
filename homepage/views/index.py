@@ -16,12 +16,8 @@ def show_index():
 @homepage.app.route("/wip/")
 def show_wip():
     """Render homepage for the site during development."""
-
-    logname = get_logname()
-    if logname is None:
-        logname = "log in"
     
-    return flask.render_template("wip.html")
+    return flask.redirect("/")
 
 
 @homepage.app.route("/user/<uname>/")
