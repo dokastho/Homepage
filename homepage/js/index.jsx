@@ -20,11 +20,11 @@ class Homepage extends React.Component {
       focusedTopicIdx: 0,
       maxTopicIdx: 0,
       launched: false,
+      fadeIn: false,
     };
 
     this.setTopicFocus = this.setTopicFocus.bind(this);
-
-    this.myRef = React.createRef();
+    this.loadSite = this.loadSite.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +46,10 @@ class Homepage extends React.Component {
       .catch((error) => console.log(error));
   }
 
+  loadSite() {
+    this.setState({ launched: true });
+  }
+
   setTopicFocus(topicIdx) {
     const { topicSwitches } = this.state;
     this.setState({ focusedTopicIdx: topicIdx, topicSwitches: topicSwitches + 1 });
@@ -58,6 +62,7 @@ class Homepage extends React.Component {
       focusedTopicIdx,
       topicSwitches,
       launched,
+      fadeIn,
     } = this.state;
     const keys = Object.keys(topics);
     const focusedKey = keys[focusedTopicIdx];
@@ -83,7 +88,7 @@ class Homepage extends React.Component {
                 <Footbar />
               </>
             ) : (
-              <SplashPage />
+              <SplashPage loadSite={this.loadSite} />
             )
           }
         </BrowserView>

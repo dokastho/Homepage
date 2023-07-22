@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import Lottie from 'react-lottie-player';
 import animationData from '../lotties/launcher-arrow.json';
@@ -7,21 +8,35 @@ class SplashPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      doPlay: false
+      doPlay: false,
+      fadeIn: false,
     }
 
     this.playAnimation = this.playAnimation.bind(this);
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ fadeIn: true });
+    }, 300)
+  }
+
   playAnimation() {
     this.setState({ doPlay: true });
+    const { loadSite } = this.props;
+    setTimeout(() => {
+      this.setState({ fadeIn: false });
+    }, 400)
+    setTimeout(() => {
+      loadSite();
+    }, 600)
   }
 
   render() {
-    const { doPlay } = this.state;
+    const { doPlay, fadeIn } = this.state;
 
     return (
-      <div className='mobile'>
+      <div className={`mobile fade-${fadeIn ? 'in' : 'out'}`}>
         <h1>Hey There 👋</h1>
         <h5>Thanks for visiting.</h5>
         <br />
@@ -49,5 +64,11 @@ class SplashPage extends React.Component {
     );
   }
 }
+
+SplashPage.propTypes = {
+  // prop types go here
+  // loadSite
+}
+
 
 export default SplashPage;
