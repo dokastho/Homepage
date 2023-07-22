@@ -6,6 +6,7 @@ import Headbar from './Headbar';
 import Footbar from './Footbar';
 import { BrowserView, MobileView } from 'react-device-detect';
 import MobilePage from './MobilePage';
+import SplashPage from './SplashPage';
 
 class Homepage extends React.Component {
 
@@ -18,6 +19,7 @@ class Homepage extends React.Component {
       topics: [],
       focusedTopicIdx: 0,
       maxTopicIdx: 0,
+      launched: false,
     };
 
     this.setTopicFocus = this.setTopicFocus.bind(this);
@@ -55,6 +57,7 @@ class Homepage extends React.Component {
       topics,
       focusedTopicIdx,
       topicSwitches,
+      launched,
     } = this.state;
     const keys = Object.keys(topics);
     const focusedKey = keys[focusedTopicIdx];
@@ -65,16 +68,24 @@ class Homepage extends React.Component {
     return (
       <div className='site'>
         <BrowserView>
-          <div className='static-navigator'>
-            <Headbar />
-            <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
-          </div>
-          <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
-            {
-              focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
-            }
-          </div>
-          <Footbar />
+          {
+            launched ? (
+              <>
+                <div className='static-navigator'>
+                  <Headbar />
+                  <Picker setTopicFocus={this.setTopicFocus} topics={pickerTopics} />
+                </div>
+                <div className='topic-tray' key={`${focusedKey}-${topicSwitches}`}>
+                  {
+                    focusedTopic ? <Topic content={focusedTopic} topicIdx={focusedTopicIdx} /> : null
+                  }
+                </div>
+                <Footbar />
+              </>
+            ) : (
+              <SplashPage />
+            )
+          }
         </BrowserView>
         <MobileView>
           <MobilePage />

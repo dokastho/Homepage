@@ -12,8 +12,6 @@ body {
     background-color: var(--alt);
     margin: 1vh;
     padding: 1rem;
-    /* transition: all 0.2s; */
-
     font-size: 2rem;
 }
 
@@ -152,7 +150,7 @@ a {
 .image {
     float: right;
     max-width: 50%;
-    max-height: 60vh;
+    max-height: 55vh;
     height: 100%;
     transform: translateY(-4rem);
 }
@@ -175,6 +173,25 @@ a {
     margin-top: 20%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.launcher-button {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: white;
+    transition: all 0.6s ease-in-out;
+    cursor: pointer;
+}
+
+.launcher-button:hover {
+    background-color: lightgray;
+}
+
+.launcher-button-animation {
+    height: 4rem;
+    transform: rotate(90deg);
 }
 
 /* mobile layout */
