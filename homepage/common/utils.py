@@ -35,7 +35,7 @@ def get_all():
         "args": [owner],
     }
     req_hdrs = {"content_type": "application/json"}
-    topics = get_client().get(req_data, req_hdrs)
+    topics = get_client(1).get(req_data, req_hdrs)
 
     for topic in topics:
         topic["groups"] = dict()
@@ -50,7 +50,7 @@ def get_all():
         "args": [owner],
     }
     req_hdrs = {"content_type": "application/json"}
-    groups = get_client().get(req_data, req_hdrs)
+    groups = get_client(2).get(req_data, req_hdrs)
 
     for group in groups:
         group["stories"] = []
@@ -65,7 +65,7 @@ def get_all():
         "args": [owner],
     }
     req_hdrs = {"content_type": "application/json"}
-    media = get_client().get(req_data, req_hdrs)
+    media = get_client(3).get(req_data, req_hdrs)
 
     for m in media:
         topic_id = m["topicId"]
@@ -80,7 +80,7 @@ def get_all():
         "args": [owner],
     }
     req_hdrs = {"content_type": "application/json"}
-    stories = get_client().get(req_data, req_hdrs)
+    stories = get_client(1).get(req_data, req_hdrs)
 
     for s in stories:
         topic_id = s["topicId"]
@@ -111,7 +111,7 @@ def get_group(groupId):
     logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
-        
+
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
         "query": "SELECT * FROM groups WHERE groupId = ? AND owner = ?",
@@ -127,7 +127,7 @@ def get_story(storyId):
     logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
-    
+
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
         "query": "SELECT * FROM stories WHERE storyId = ? AND owner = ?",
@@ -143,7 +143,7 @@ def get_media(mediaId):
     logname = homepage.common.model.get_logname()
     if logname is None:
         flask.abort(403)
-    
+
     req_data = {
         "table": homepage.app.config["DATABASE_FILENAME"],
         "query": "SELECT * FROM media WHERE mediaId = ? AND owner = ?",
