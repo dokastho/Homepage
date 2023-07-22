@@ -28,7 +28,7 @@ class SplashPage extends React.Component {
         <br />
         <div className='launcher-button' onClick={this.playAnimation}>
           <h5>Explore My Portfolio</h5>
-          {/* {
+          {
             doPlay ? (
               <Lottie
                 className='launcher-button-animation'
@@ -43,7 +43,7 @@ class SplashPage extends React.Component {
                 animationData={animationData}
               />
             )
-          } */}
+          }
         </div>
       </div>
     );

@@ -1,8 +1,8 @@
 :root {
-    --primary: white;
-    --alt: #1f4954;
+    --primary: #1f4954;
+    --alt: white;
     --trim: black;
-    --text: white;
+    --text: #1f4954;
     --alt-text: var(--alt);
 }
 
@@ -176,22 +176,25 @@ a {
 }
 
 .launcher-button {
-    display: flex;
+    display: inline-flex;
+    margin-left: auto;
+    margin-right: auto;
     align-items: center;
     padding: 1rem;
     border-radius: 0.5rem;
     color: white;
     transition: all 0.6s ease-in-out;
+    position: relative;
+    color: var(--text);
     cursor: pointer;
-}
-
-.launcher-button:hover {
-    background-color: lightgray;
 }
 
 .launcher-button-animation {
     height: 4rem;
     transform: rotate(90deg);
+    position: absolute;
+    right: calc(-150px - 1rem);
+    pointer-events: visibleFill;
 }
 
 /* mobile layout */
