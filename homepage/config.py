@@ -10,5 +10,6 @@ SESSION_COOKIE_NAME = 'login'
 SITE_ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Database file is var/resume.sqlite3
 DATABASE_FILENAME = 'homepage'
+UPLOAD_FOLDER = SITE_ROOT/'homepage'/'static'/'img'
 MY_LOGNAME = "dokastho"
 NDBS = 3
