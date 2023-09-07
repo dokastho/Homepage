@@ -2,7 +2,7 @@
 
 # Summary
 
-This repository contains the code for my personal portfolio, found on [dokasfam](https://www.dokasfam.com).
+This repository contains the code for my personal portfolio, found on [dokasfam](https://www.dokastho.io).
 
 ## Frameworks & APIs
 
